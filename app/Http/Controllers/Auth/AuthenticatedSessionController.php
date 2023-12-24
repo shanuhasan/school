@@ -29,7 +29,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if(Auth::user()->user_type == 1)
+        {
+            $url = RouteServiceProvider::ADMIN_HOME;
+        }
+        else if(Auth::user()->user_type == 2)
+        {
+            $url = RouteServiceProvider::TEACHER_HOME;
+        }
+        else if(Auth::user()->user_type == 3)
+        {
+            $url = RouteServiceProvider::STUDENT_HOME;
+        }
+        else if(Auth::user()->user_type == 4)
+        {
+            $url = RouteServiceProvider::PARENT_HOME;
+        }
+
+        // print_r($url);die;
+        return redirect()->intended($url);
     }
 
     /**

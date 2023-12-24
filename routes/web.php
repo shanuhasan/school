@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UploadImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,21 +21,48 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function(){
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    //admins
+    Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
+    Route::get('/admins/create',[AdminController::class,'create'])->name('admins.create');
+    Route::post('/admins/store',[AdminController::class,'store'])->name('admins.store');
+    Route::get('/admins/{id}/edit',[AdminController::class,'edit'])->name('admins.edit');
+    Route::put('/admins/{id}',[AdminController::class,'update'])->name('admins.update');
+    Route::get('/admins/{id}',[AdminController::class,'destroy'])->name('admins.delete');
 });
+
+Route::group(['middleware'=>['teacher'],'prefix'=>'teacher','as'=>'teacher.'],function(){
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+});
+
+Route::group(['middleware'=>['student'],'prefix'=>'student','as'=>'student.'],function(){
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+});
+
+Route::group(['middleware'=>['parent'],'prefix'=>'parent','as'=>'parent.'],function(){
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+});
+
+
+Route::post('/upload-image',[UploadImageController::class,'create'])->name('temp-images.create');
 
 require __DIR__.'/auth.php';
 
-Route::group(['middleware'=>['auth:admin'],'prefix'=>'admin','as'=>'admin.'],function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
+// Route::group(['middleware'=>['auth:admin'],'prefix'=>'admin','as'=>'admin.'],function(){
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// });
 
 
-require __DIR__.'/adminauth.php';
+// require __DIR__.'/adminauth.php';
