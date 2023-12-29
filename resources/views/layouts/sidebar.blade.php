@@ -31,9 +31,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.admins.index') }}" class="nav-link @yield('admin')">
+                        <a href="{{ route('admin.admins.index') }}" class="nav-link @yield('admins')">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Admins</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.class.index') }}" class="nav-link @yield('class')">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Classes</p>
                         </a>
                     </li>
                 @elseif(Auth::user()->user_type == 2)

@@ -45,9 +45,10 @@ class User extends Authenticatable
     ];
 
     static public function getAdmins(){
+
         $admins = self::select('users.*')
                         ->where('user_type',1)
-                        ->where('status',1)
+                        // ->where('status',1)
                         ->where('is_deleted',0);
 
         if(!empty(Request::get('name')))

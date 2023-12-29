@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
@@ -41,6 +42,14 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/admins/{id}/edit',[AdminController::class,'edit'])->name('admins.edit');
     Route::put('/admins/{id}',[AdminController::class,'update'])->name('admins.update');
     Route::get('/admins/{id}',[AdminController::class,'destroy'])->name('admins.delete');
+
+    //classes
+    Route::get('/class', [ClassController::class, 'index'])->name('class.index');
+    Route::get('/class/create',[ClassController::class,'create'])->name('class.create');
+    Route::post('/class/store',[ClassController::class,'store'])->name('class.store');
+    Route::get('/class/{id}/edit',[ClassController::class,'edit'])->name('class.edit');
+    Route::put('/class/{id}',[ClassController::class,'update'])->name('class.update');
+    Route::get('/class/{id}',[ClassController::class,'destroy'])->name('class.delete');
 });
 
 Route::group(['middleware'=>['teacher'],'prefix'=>'teacher','as'=>'teacher.'],function(){
