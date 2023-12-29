@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
+use App\Http\Controllers\ClassSubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,16 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/subject/{id}/edit',[SubjectController::class,'edit'])->name('subject.edit');
     Route::put('/subject/{id}',[SubjectController::class,'update'])->name('subject.update');
     Route::get('/subject/{id}',[SubjectController::class,'destroy'])->name('subject.delete');
+
+    //assign subjects
+    Route::get('/assign-subject', [ClassSubjectController::class, 'index'])->name('assign_subject.index');
+    Route::get('/assign-subject/create',[ClassSubjectController::class,'create'])->name('assign_subject.create');
+    Route::post('/assign-subject/store',[ClassSubjectController::class,'store'])->name('assign_subject.store');
+    Route::get('/assign-subject/{id}/edit',[ClassSubjectController::class,'edit'])->name('assign_subject.edit');
+    Route::post('/assign-subject/{id}',[ClassSubjectController::class,'update'])->name('assign_subject.update');
+    Route::get('/assign-subject/{id}/single-edit',[ClassSubjectController::class,'singleEdit'])->name('assign_subject.single-edit');
+    Route::put('/assign-subject-single/{id}',[ClassSubjectController::class,'singleUpdate'])->name('assign_subject.single-update');
+    Route::get('/assign-subject/{id}',[ClassSubjectController::class,'destroy'])->name('assign_subject.delete');
 });
 
 Route::group(['middleware'=>['teacher'],'prefix'=>'teacher','as'=>'teacher.'],function(){

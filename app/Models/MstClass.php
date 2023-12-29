@@ -25,4 +25,14 @@ class MstClass extends Model
                         ->paginate(10);
         return  $classes;
     }
+
+    static public function getClass(){
+
+        $classes = self::select('mst_classes.*')
+                        ->where('mst_classes.is_deleted',0)
+                        ->where('mst_classes.status',1)
+                        ->orderBy('mst_classes.name','ASC')
+                        ->get();
+        return  $classes;
+    }
 }

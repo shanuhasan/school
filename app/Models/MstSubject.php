@@ -29,4 +29,14 @@ class MstSubject extends Model
                         ->paginate(10);
         return  $subjects;
     }
+
+    static public function getSubject(){
+
+        $subjects = self::select('mst_subjects.*')
+                        ->where('mst_subjects.is_deleted',0)
+                        ->where('mst_subjects.status',1)
+                        ->orderBy('mst_subjects.name','ASC')
+                        ->get();
+        return  $subjects;
+    }
 }

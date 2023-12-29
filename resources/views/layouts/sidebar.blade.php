@@ -38,14 +38,20 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.class.index') }}" class="nav-link @yield('class')">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-list"></i>
                             <p>Classes</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.subject.index') }}" class="nav-link @yield('subject')">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-book"></i>
                             <p>Subjects</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.assign_subject.index') }}" class="nav-link @yield('assign_subject')">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Assign Subjects</p>
                         </a>
                     </li>
                 @elseif(Auth::user()->user_type == 2)
