@@ -20,10 +20,6 @@ class MstClass extends Model
         {
             $classes = $classes->where('mst_classes.name','like','%'.Request::get('name').'%');
         }
-        // if(!empty(Request::get('email')))
-        // {
-        //     $classes = $classes->where('email','like','%'.Request::get('email').'%');
-        // }
 
         $classes = $classes->orderBy('mst_classes.id','DESC')
                         ->paginate(10);

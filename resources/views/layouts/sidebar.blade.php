@@ -42,6 +42,12 @@
                             <p>Classes</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.subject.index') }}" class="nav-link @yield('subject')">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Subjects</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->user_type == 2)
                     <li class="nav-item">
                         <a href="{{ route('teacher.dashboard') }}" class="nav-link @yield('dashboard')">

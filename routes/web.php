@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
 
@@ -50,6 +51,14 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/class/{id}/edit',[ClassController::class,'edit'])->name('class.edit');
     Route::put('/class/{id}',[ClassController::class,'update'])->name('class.update');
     Route::get('/class/{id}',[ClassController::class,'destroy'])->name('class.delete');
+    
+    //subjects
+    Route::get('/subject', [SubjectController::class, 'index'])->name('subject.index');
+    Route::get('/subject/create',[SubjectController::class,'create'])->name('subject.create');
+    Route::post('/subject/store',[SubjectController::class,'store'])->name('subject.store');
+    Route::get('/subject/{id}/edit',[SubjectController::class,'edit'])->name('subject.edit');
+    Route::put('/subject/{id}',[SubjectController::class,'update'])->name('subject.update');
+    Route::get('/subject/{id}',[SubjectController::class,'destroy'])->name('subject.delete');
 });
 
 Route::group(['middleware'=>['teacher'],'prefix'=>'teacher','as'=>'teacher.'],function(){

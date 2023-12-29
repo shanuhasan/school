@@ -2,43 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MstClass;
+use App\Models\MstSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class ClassController extends Controller
+class SubjectController extends Controller
 {
     public function index(Request $request){
 
-        $classes = MstClass::getRecords();
+        $subjects = MstSubject::getRecords();
 
-        return view('admin.class.index',[
-            'classes'=>$classes
+        return view('admin.subject.index',[
+            'subjects'=>$subjects
         ]);
     }
 
     public function create(){
-        return view('admin.class.create');
+        return view('admin.subject.create');
     }
 
     public function store(Request $request){
         
         $validator = Validator::make($request->all(),[
-            'name'=>'required|unique:mst_classes',
+            // 'name'=>'required|unique:mst_subjects',
+            'name'=>'required',
+            'status'=>'required',
+            'type'=>'required',
         ]);
         if($validator->passes()){
 
-            $model = new MstClass();
+            $model = new MstSubject();
             $model->name = $request->name;
             $model->status = $request->status;
+            $model->type = $request->type;
             $model->created_by = Auth::user()->id;
             $model->save();
 
-            $request->session()->flash('success','Class added successfully.');
+            $request->session()->flash('success','Subject added successfully.');
             return response()->json([
                 'status'=>true,
-                'message'=>'Class added successfully.'  
+                'message'=>'Subject added successfully.'  
             ]);
 
         }else{
@@ -51,43 +55,47 @@ class ClassController extends Controller
 
     public function edit($id , Request $request){
 
-        $class = MstClass::find($id);
-        if(empty($class))
+        $subject = MstSubject::find($id);
+        if(empty($subject))
         {
-            return redirect()->route('class.index');
+            return redirect()->route('subject.index');
         }
 
-        return view('admin.class.edit',compact('class'));
+        return view('admin.subject.edit',compact('subject'));
         
     }
 
     public function update($id, Request $request){
 
-        $model = MstClass::find($id);
+        $model = MstSubject::find($id);
         if(empty($model))
         {
-            $request->session()->flash('error','Class not found.');
+            $request->session()->flash('error','Subject not found.');
             return response()->json([
                 'status'=>false,
                 'notFound'=>true,
-                'message'=>'Class not found.'
+                'message'=>'Subject not found.'
             ]);
         }
 
         $validator = Validator::make($request->all(),[
-            'name'=>'required|unique:mst_classes,name,'.$model->id.',id',
+            // 'name'=>'required|unique:mst_subjects,name,'.$model->id.',id',
+            'name'=>'required',
+            'status'=>'required',
+            'type'=>'required',
         ]);
 
         if($validator->passes()){
 
             $model->name = $request->name;
             $model->status = $request->status;
+            $model->type = $request->type;
             $model->save();
 
-            $request->session()->flash('success','Class updated successfully.');
+            $request->session()->flash('success','Subject updated successfully.');
             return response()->json([
                 'status'=>true,
-                'message'=>'Class updated successfully.'  
+                'message'=>'Subject updated successfully.'  
             ]);
 
         }else{
@@ -99,24 +107,24 @@ class ClassController extends Controller
     }
     
     public function destroy($id, Request $request){
-        $model = MstClass::find($id);
+        $model = MstSubject::find($id);
         if(empty($model))
         {
-            $request->session()->flash('error','Class not found.');
+            $request->session()->flash('error','Subject not found.');
             return response()->json([
                 'status'=>true,
-                'message'=>'Class not found.'
+                'message'=>'Subject not found.'
             ]);
         }
 
         $model->is_deleted = 1;
         $model->save();
 
-        $request->session()->flash('success','Class deleted successfully.');
+        $request->session()->flash('success','Subject deleted successfully.');
 
         return response()->json([
             'status'=>true,
-            'message'=>'Class deleted successfully.'
+            'message'=>'Subject deleted successfully.'
         ]);
 
     }

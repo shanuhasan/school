@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mst_classes', function (Blueprint $table) {
+        Schema::create('mst_subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('type')->nullable();
             $table->tinyInteger('status')->default(1)->nullable();
             $table->tinyInteger('is_deleted')->default(0)->nullable();
             $table->integer('created_by')->nullable();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mst_classes');
+        Schema::dropIfExists('mst_subjects');
     }
 };
