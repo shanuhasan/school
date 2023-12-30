@@ -50,7 +50,6 @@ class StudentController extends Controller
         {
             $model = new User();
             $model->name = $request->name;
-            $model->last_name = $request->last_name;
             $model->phone = $request->phone;
             $model->class_id = $request->class_id;
             $model->address = $request->address;
@@ -151,7 +150,6 @@ class StudentController extends Controller
         if($validator->passes()){
 
             $model->name = $request->name;
-            $model->last_name = $request->last_name;
             $model->phone = $request->phone;
             $model->class_id = $request->class_id;
             $model->address = $request->address;

@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" id="name" value="{{ $user->name }}"
@@ -33,15 +33,7 @@
                                     <p></p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" name="last_name" id="last_name" class="form-control"
-                                        placeholder="Last Name" value="{{ $user->last_name }}">
-                                    <p class="error"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="class_id">Class<span style="color:red">*</span></label>
                                     <select name="class_id" id="class_id" class="form-control">

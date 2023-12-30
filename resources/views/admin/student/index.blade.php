@@ -26,22 +26,13 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label for="name">First Name</label>
+                                    <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Name"
                                         value="{{ Request::get('name') }}">
                                 </div>
                                 <button type="submit" class="btn btn-success">Filter</button>
                                 <a href="{{ route('admin.student.index') }}" class="btn btn-danger">Reset</a>
                             </div>
-
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control" placeholder="Name"
-                                        value="{{ Request::get('last_name') }}">
-                                </div>
-                            </div>
-
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="class_id">Class</label>
@@ -84,7 +75,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Image</th>
-                                <th>Full Name</th>
+                                <th>Name</th>
                                 <th>Parent Name</th>
                                 <th>Email</th>
                                 <th>Class</th>
@@ -105,7 +96,7 @@
                                                     class="img-circle elevation-2" width='40'>
                                             </div>
                                         </td>
-                                        <td>{{ $student->name }} {{ $student->last_name }}</td>
+                                        <td>{{ $student->name }}</td>
                                         <td>{{ getName($student->parent_id) }}</td>
                                         <td>{{ $student->email }}</td>
                                         <td>{{ studentClassName($student->class_id) }}</td>
