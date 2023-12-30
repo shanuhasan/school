@@ -69,6 +69,10 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::put('/parent/{id}',[ParentController::class,'update'])->name('parent.update');
     Route::get('/parent/{id}',[ParentController::class,'destroy'])->name('parent.delete');
 
+    Route::get('/parent/my-student/{parent_id}', [ParentController::class, 'myStudent'])->name('parent.student.index');
+    Route::get('/parent/asssign-student/{student_id}/{parent_id}', [ParentController::class, 'assignStudentToParent'])->name('parent.student_assign');
+    Route::get('/parent/asssign-student-delete/{student_id}', [ParentController::class, 'assignStudentToParentDelete'])->name('parent.student_assign_delete');
+
     //classes
     Route::get('/class', [ClassController::class, 'index'])->name('class.index');
     Route::get('/class/create',[ClassController::class,'create'])->name('class.create');

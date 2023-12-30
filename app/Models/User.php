@@ -116,4 +116,52 @@ class User extends Authenticatable
                         ->paginate(10);
         return  $parents;
     }
+
+    static public function getSearchStudent()
+    {
+        // dd(Request::all());
+        if(!empty(Request::get('id')) || !empty(Request::get('name')) || !empty(Request::get('last_name'))  || !empty(Request::get('email')))
+        {
+            $students = self::select('users.*')
+                                    ->where('users.role',3)
+                                    ->where('users.is_deleted',0);
+
+            if(!empty(Request::get('id')))
+            {
+                $students = $students->where('users.id','=',Request::get('id'));
+            }
+
+            if(!empty(Request::get('name')))
+            {
+                $students = $students->where('users.name','like','%'.Request::get('name').'%');
+            }
+
+            if(!empty(Request::get('last_name')))
+            {
+                $students = $students->where('users.last_name','like','%'.Request::get('last_name').'%');
+            }
+        
+            if(!empty(Request::get('email')))
+            {
+                $students = $students->where('users.email','like','%'.Request::get('email').'%');
+            }
+
+            $students = $students->orderBy('users.id','DESC')
+                        ->limit(50)
+                        ->get();
+            return  $students;
+        }
+    }
+
+    static public function getParentStudent($parentId)
+    {
+        $students = self::select('users.*')
+                            ->where('users.role',3)
+                            ->where('users.parent_id',$parentId)
+                            ->where('users.is_deleted',0)
+                            ->orderBy('users.id','DESC')
+                            ->limit(50)
+                            ->get();
+        return  $students;
+    }
 }

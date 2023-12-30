@@ -100,6 +100,10 @@
                                                 class="text-danger w-4 h-4 mr-1">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            <a href="{{ route('admin.parent.student.index', $parent->id) }}"
+                                                class="btn btn-primary btn-sm">
+                                                My Student
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

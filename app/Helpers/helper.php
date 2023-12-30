@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Models\MstClass;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,5 +52,16 @@ function studentClassName($class_id)
         return '';
     }
     return $class->name;
+}
+
+function getName($id)
+{
+    $user = User::find($id);
+
+    if(empty($user))
+    {
+        return '';
+    }
+    return $user->name;
 }
 

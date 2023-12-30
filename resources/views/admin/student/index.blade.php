@@ -85,6 +85,7 @@
                                 <th>#</th>
                                 <th>Image</th>
                                 <th>Full Name</th>
+                                <th>Parent Name</th>
                                 <th>Email</th>
                                 <th>Class</th>
                                 <th>Status</th>
@@ -105,6 +106,7 @@
                                             </div>
                                         </td>
                                         <td>{{ $student->name }} {{ $student->last_name }}</td>
+                                        <td>{{ getName($student->parent_id) }}</td>
                                         <td>{{ $student->email }}</td>
                                         <td>{{ studentClassName($student->class_id) }}</td>
                                         <td>
