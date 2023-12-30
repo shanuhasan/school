@@ -95,4 +95,25 @@ class User extends Authenticatable
                         ->paginate(10);
         return  $students;
     }
+
+    static public function getParents(){
+
+        $parents = self::select('users.*')
+                        ->where('role',4)
+                        ->where('is_deleted',0);
+
+        if(!empty(Request::get('name')))
+        {
+            $parents = $parents->where('name','like','%'.Request::get('name').'%');
+        }
+
+        if(!empty(Request::get('email')))
+        {
+            $parents = $parents->where('email','like','%'.Request::get('email').'%');
+        }
+
+        $parents = $parents->orderBy('id','DESC')
+                        ->paginate(10);
+        return  $parents;
+    }
 }

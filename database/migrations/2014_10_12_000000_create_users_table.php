@@ -30,6 +30,7 @@ return new class extends Migration
             $table->date('admission_date')->nullable();
             $table->string('rollno')->nullable();
             $table->integer('class_id')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->string('gender')->nullable();
             $table->date('dob')->nullable();
             $table->string('caste')->nullable();
@@ -37,6 +38,7 @@ return new class extends Migration
             $table->string('blood_group')->nullable();
             $table->string('height')->nullable();
             $table->string('weight')->nullable();
+            $table->string('occupation')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

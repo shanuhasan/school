@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -59,6 +60,14 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/student/{id}/edit',[StudentController::class,'edit'])->name('student.edit');
     Route::put('/student/{id}',[StudentController::class,'update'])->name('student.update');
     Route::get('/student/{id}',[StudentController::class,'destroy'])->name('student.delete');
+
+    //parents
+    Route::get('/parent', [ParentController::class, 'index'])->name('parent.index');
+    Route::get('/parent/create',[ParentController::class,'create'])->name('parent.create');
+    Route::post('/parent/store',[ParentController::class,'store'])->name('parent.store');
+    Route::get('/parent/{id}/edit',[ParentController::class,'edit'])->name('parent.edit');
+    Route::put('/parent/{id}',[ParentController::class,'update'])->name('parent.update');
+    Route::get('/parent/{id}',[ParentController::class,'destroy'])->name('parent.delete');
 
     //classes
     Route::get('/class', [ClassController::class, 'index'])->name('class.index');

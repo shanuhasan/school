@@ -43,6 +43,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.parent.index') }}" class="nav-link @yield('parent')">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Parents</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.class.index') }}" class="nav-link @yield('class')">
                             <i class="nav-icon fas fa-list"></i>
                             <p>Classes</p>
