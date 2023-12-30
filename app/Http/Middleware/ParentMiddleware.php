@@ -18,7 +18,7 @@ class ParentMiddleware
     {
         if(!empty(Auth::check()))
         {
-            if(Auth::user()->user_type == 4)
+            if(Auth::user()->role == 4)
             {
                 return $next($request);
             }

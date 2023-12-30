@@ -18,7 +18,7 @@ class StudentMiddleware
     {
         if(!empty(Auth::check()))
         {
-            if(Auth::user()->user_type == 3)
+            if(Auth::user()->role == 3)
             {
                 return $next($request);
             }

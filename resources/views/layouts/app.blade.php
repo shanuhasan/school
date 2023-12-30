@@ -84,6 +84,7 @@
     <script src="{{ asset('admin-assets/dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin-assets/dist/js/demo.js') }}"></script>
+    <script src="{{ asset('admin-assets/dist/js/form-sanitization.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin-assets/dist/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.js') }}"></script>

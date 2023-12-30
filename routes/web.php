@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
@@ -37,6 +38,12 @@ Route::get('/', function () {
 Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function(){
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+    Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
+
     //admins
     Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('/admins/create',[AdminController::class,'create'])->name('admins.create');
@@ -44,6 +51,14 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/admins/{id}/edit',[AdminController::class,'edit'])->name('admins.edit');
     Route::put('/admins/{id}',[AdminController::class,'update'])->name('admins.update');
     Route::get('/admins/{id}',[AdminController::class,'destroy'])->name('admins.delete');
+
+    //students
+    Route::get('/student', [StudentController::class, 'index'])->name('student.index');
+    Route::get('/student/create',[StudentController::class,'create'])->name('student.create');
+    Route::post('/student/store',[StudentController::class,'store'])->name('student.store');
+    Route::get('/student/{id}/edit',[StudentController::class,'edit'])->name('student.edit');
+    Route::put('/student/{id}',[StudentController::class,'update'])->name('student.update');
+    Route::get('/student/{id}',[StudentController::class,'destroy'])->name('student.delete');
 
     //classes
     Route::get('/class', [ClassController::class, 'index'])->name('class.index');
@@ -72,16 +87,35 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/assign-subject/{id}',[ClassSubjectController::class,'destroy'])->name('assign_subject.delete');
 });
 
+
 Route::group(['middleware'=>['teacher'],'prefix'=>'teacher','as'=>'teacher.'],function(){
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+    Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
 });
 
 Route::group(['middleware'=>['student'],'prefix'=>'student','as'=>'student.'],function(){
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+    Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
 });
 
 Route::group(['middleware'=>['parent'],'prefix'=>'parent','as'=>'parent.'],function(){
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+    Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
 });
 
 

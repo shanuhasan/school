@@ -4,31 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Media;
+use App\Models\MstClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AdminController extends Controller
+class StudentController extends Controller
 {
     public function index(Request $request)
     {
-        $admins = User::getAdmins();
+        $students = User::getStudents();
 
-        return view('admin.admins.index',[
-            'admins'=>$admins
+        $getClass = MstClass::getClass();
+        return view('admin.student.index',[
+            'students'=>$students,
+            'getClass'=>$getClass,
         ]);
     }
 
     public function create(){
 
-        return view('admin.admins.create');
+        $getClass = MstClass::getClass();
+        return view('admin.student.create',[
+            'getClass' => $getClass
+        ]);
     }
 
     public function store(Request $request){
 
         $validator = Validator::make($request->all(),[
             'name'=>'required|min:3',
+            'class_id'=>'required',
+            'admission_no'=>'required',
+            'admission_date'=>'required',
+            'gender'=>'required',
+            'dob'=>'required',
+            'religion'=>'required',
             'status'=>'required',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:5|confirmed',
@@ -38,8 +50,24 @@ class AdminController extends Controller
         {
             $model = new User();
             $model->name = $request->name;
+            $model->last_name = $request->last_name;
+            $model->phone = $request->phone;
+            $model->class_id = $request->class_id;
+            $model->address = $request->address;
+            $model->city = $request->city;
+            $model->pincode = $request->pincode;
+            $model->admission_no = $request->admission_no;
+            $model->admission_date = $request->admission_date;
+            $model->rollno = $request->rollno;
+            $model->gender = $request->gender;
+            $model->dob = $request->dob;
+            $model->caste = $request->caste;
+            $model->religion = $request->religion;
+            $model->blood_group = $request->blood_group;
+            $model->height = $request->height;
+            $model->weight = $request->weight;
             $model->email = $request->email;
-            $model->role = 1;
+            $model->role = 3;
             $model->status = $request->status;
             $model->password = Hash::make($request->password);
             
@@ -68,7 +96,7 @@ class AdminController extends Controller
             }
             $model->save();
 
-            session()->flash('success','Admin added successfully.');
+            session()->flash('success','Student added successfully.');
             return response()->json([
                 'status'=>true
             ]);
@@ -85,10 +113,14 @@ class AdminController extends Controller
         $user = User::find($id);
         if(empty($user))
         {
-            return redirect()->route('admin.admins.index');
+            return redirect()->route('admin.student.index');
         }
+        $getClass = MstClass::getClass();
 
-        return view('admin.admins.edit',compact('user'));        
+        return view('admin.student.edit',[
+            'user'=>$user,
+            'getClass'=>$getClass,
+        ]);        
     }
 
     public function update($id, Request $request){
@@ -96,23 +128,45 @@ class AdminController extends Controller
         $model = User::find($id);
         if(empty($model))
         {
-            $request->session()->flash('error','Admin not found.');
+            $request->session()->flash('error','Student not found.');
             return response()->json([
                 'status'=>false,
                 'notFound'=>true,
-                'message'=>'Admin not found.'
+                'message'=>'Student not found.'
             ]);
         }
 
         $validator = Validator::make($request->all(),[
             'email'=>'required|email|unique:users,email,'.$id.',id',
             'name'=>'required|min:3',
+            'class_id'=>'required',
+            'admission_no'=>'required',
+            'admission_date'=>'required',
+            'gender'=>'required',
+            'dob'=>'required',
+            'religion'=>'required',
             'status'=>'required',
         ]);
 
         if($validator->passes()){
 
             $model->name = $request->name;
+            $model->last_name = $request->last_name;
+            $model->phone = $request->phone;
+            $model->class_id = $request->class_id;
+            $model->address = $request->address;
+            $model->city = $request->city;
+            $model->pincode = $request->pincode;
+            $model->admission_no = trim($request->admission_no);
+            $model->admission_date = $request->admission_date;
+            $model->rollno = trim($request->rollno);
+            $model->gender = $request->gender;
+            $model->dob = $request->dob;
+            $model->caste = $request->caste;
+            $model->religion = $request->religion;
+            $model->blood_group = $request->blood_group;
+            $model->height = $request->height;
+            $model->weight = $request->weight;
             $model->status = $request->status;
 
             if($request->password !="")
@@ -152,10 +206,10 @@ class AdminController extends Controller
                 
             }
 
-            $request->session()->flash('success','Admin updated successfully.');
+            $request->session()->flash('success','Student updated successfully.');
             return response()->json([
                 'status'=>true,
-                'message'=>'Admin updated successfully.'  
+                'message'=>'Student updated successfully.'  
             ]);
 
         }else{
@@ -170,21 +224,21 @@ class AdminController extends Controller
         $model = User::find($id);
         if(empty($model))
         {
-            $request->session()->flash('error','Admin not found.');
+            $request->session()->flash('error','Student not found.');
             return response()->json([
                 'status'=>true,
-                'message'=>'Admin not found.'
+                'message'=>'Student not found.'
             ]);
         }
 
         $model->is_deleted = 1;
         $model->save();
 
-        $request->session()->flash('success','Admin deleted successfully.');
+        $request->session()->flash('success','Student deleted successfully.');
 
         return response()->json([
             'status'=>true,
-            'message'=>'Admin deleted successfully.'
+            'message'=>'Student deleted successfully.'
         ]);
 
     }

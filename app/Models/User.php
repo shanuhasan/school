@@ -47,7 +47,7 @@ class User extends Authenticatable
     static public function getAdmins(){
 
         $admins = self::select('users.*')
-                        ->where('user_type',1)
+                        ->where('role',1)
                         // ->where('status',1)
                         ->where('is_deleted',0);
 
@@ -63,5 +63,36 @@ class User extends Authenticatable
         $admins = $admins->orderBy('id','DESC')
                         ->paginate(10);
         return  $admins;
+    }
+
+    static public function getStudents(){
+
+        $students = self::select('users.*')
+                        ->where('role',3)
+                        ->where('is_deleted',0);
+
+        if(!empty(Request::get('name')))
+        {
+            $students = $students->where('name','like','%'.Request::get('name').'%');
+        }
+
+        if(!empty(Request::get('last_name')))
+        {
+            $students = $students->where('last_name','like','%'.Request::get('last_name').'%');
+        }
+
+        if(!empty(Request::get('class_id')))
+        {
+            $students = $students->where('class_id','=',Request::get('class_id'));
+        }
+
+        if(!empty(Request::get('email')))
+        {
+            $students = $students->where('email','like','%'.Request::get('email').'%');
+        }
+
+        $students = $students->orderBy('id','DESC')
+                        ->paginate(10);
+        return  $students;
     }
 }

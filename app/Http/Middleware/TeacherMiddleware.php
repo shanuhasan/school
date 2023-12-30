@@ -18,7 +18,7 @@ class TeacherMiddleware
     {
         if(!empty(Auth::check()))
         {
-            if(Auth::user()->user_type == 2)
+            if(Auth::user()->role == 2)
             {
                 return $next($request);
             }

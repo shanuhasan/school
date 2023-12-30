@@ -30,19 +30,19 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 // return redirect(RouteServiceProvider::HOME);
 
-                if(Auth::user()->user_type == 1)
+                if(Auth::user()->role == 1)
                 {
                     return redirect(RouteServiceProvider::ADMIN_HOME);
                 }
-                else if(Auth::user()->user_type == 2)
+                else if(Auth::user()->role == 2)
                 {
                     return redirect(RouteServiceProvider::TEACHER_HOME);
                 }
-                else if(Auth::user()->user_type == 3)
+                else if(Auth::user()->role == 3)
                 {
                     return redirect(RouteServiceProvider::STUDENT_HOME);
                 }
-                else if(Auth::user()->user_type == 4)
+                else if(Auth::user()->role == 4)
                 {
                     return redirect(RouteServiceProvider::PARENT_HOME);
                 }

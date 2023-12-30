@@ -1,0 +1,55 @@
+<?php
+
+use App\Models\MstClass;
+use Illuminate\Support\Facades\Auth;
+
+
+function getRoutes()
+{
+    $routeProfile = $routePassword = $routeDashboard = $routeProfileUpdate = $routePasswordProcess = 'javascript:void(0);';
+    if (Auth::user()->getOriginal('role') == 1) {
+        $routeDashboard = route('admin.dashboard');
+        $routeProfile = route('admin.profile.edit');
+        $routeProfileUpdate = route('admin.profile.update');
+        $routePassword = route('admin.profile.changePassword');
+        $routePasswordProcess = route('admin.profile.changePasswordProcess');
+    } elseif (Auth::user()->getOriginal('role') == 2) {
+        $routeDashboard = route('teacher.dashboard');
+        $routeProfile = route('teacher.profile.edit');
+        $routeProfileUpdate = route('teacher.profile.update');
+        $routePassword = route('teacher.profile.changePassword');
+        $routePasswordProcess = route('teacher.profile.changePasswordProcess');
+    } elseif (Auth::user()->getOriginal('role') == 3) {
+        $routeDashboard = route('student.dashboard');
+        $routeProfile = route('student.profile.edit');
+        $routeProfileUpdate = route('student.profile.update');
+        $routePassword = route('student.profile.changePassword');
+        $routePasswordProcess = route('student.profile.changePasswordProcess');
+    } elseif (Auth::user()->getOriginal('role') == 4) {
+        $routeDashboard = route('parent.dashboard');
+        $routeProfile = route('parent.profile.edit');
+        $routeProfileUpdate = route('parent.profile.update');
+        $routePassword = route('parent.profile.changePassword');
+        $routePasswordProcess = route('parent.profile.changePasswordProcess');
+    }
+
+    return [
+        'routeProfile'=>$routeProfile,
+        'routePassword'=>$routePassword,
+        'routeDashboard'=>$routeDashboard,
+        'routeProfileUpdate'=>$routeProfileUpdate,
+        'routePasswordProcess'=>$routePasswordProcess
+    ];
+}
+
+function studentClassName($class_id)
+{
+    $class = MstClass::find($class_id);
+
+    if(empty($class))
+    {
+        return '';
+    }
+    return $class->name;
+}
+
