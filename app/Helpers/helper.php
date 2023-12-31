@@ -88,3 +88,35 @@ function getSubjectDetail($id)
     return $model;
 }
 
+function gender()
+{
+    $list = [
+        'Male' => 'Male',
+        'Female' => 'Female',
+        'Others' => 'Others',       
+    ];
+
+    return $list;
+}
+
+function religion()
+{
+    $list = [
+        'Muslim' => 'Muslim',
+        'Hindu' => 'Hindu',
+        'Others' => 'Others',       
+    ];
+
+    return $list;
+}
+
+function status()
+{
+    $list = [
+        '1' => 'Active',
+        '0' => 'Block',      
+    ];
+
+    return $list;
+}
+

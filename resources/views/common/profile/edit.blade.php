@@ -50,10 +50,11 @@
                                     <label for="gender">Gender<span style="color:red">*</span></label>
                                     <select name="gender" id="gender" class="form-control">
                                         <option value="">select</option>
-                                        <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>Male
-                                        </option>
-                                        <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>Female
-                                        </option>
+                                        @foreach (gender() as $key => $value)
+                                            <option value="{{ $key }}"
+                                                {{ $user->gender == $key ? 'selected' : '' }}>{{ $value }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <p class="error"></p>
                                 </div>

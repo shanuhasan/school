@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +49,7 @@ class User extends Authenticatable
 
         $admins = self::select('users.*')
                         ->where('role',1)
-                        // ->where('status',1)
+                        // ->where('id','!=',Auth::user()->id)
                         ->where('is_deleted',0);
 
         if(!empty(Request::get('name')))

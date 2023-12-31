@@ -60,6 +60,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Status</th>
@@ -73,6 +74,12 @@
                                 @foreach ($admins as $admin)
                                     <tr>
                                         <td>{{ $i++ }}</td>
+                                        <td>
+                                            <div class="image">
+                                                <img src="{{ !empty($admin->image) ? asset('uploads/user/' . $admin->image) : asset('admin-assets/dist/img/avatar5.png') }}"
+                                                    class="img-circle elevation-2" width='40'>
+                                            </div>
+                                        </td>
                                         <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->email }}</td>
                                         <td>

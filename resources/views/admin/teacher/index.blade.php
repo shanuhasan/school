@@ -63,6 +63,9 @@
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Phone</th>
+                                <th>Date of Joining</th>
+                                <th>Gender</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -82,6 +85,9 @@
                                         </td>
                                         <td>{{ $teacher->name }}</td>
                                         <td>{{ $teacher->email }}</td>
+                                        <td>{{ $teacher->phone }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($teacher->admission_date)) }}</td>
+                                        <td>{{ $teacher->gender }}</td>
                                         <td>
                                             @if ($teacher->status == 1)
                                                 <i class="fas fa-check"></i>

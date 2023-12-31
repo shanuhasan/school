@@ -65,8 +65,11 @@
                                 <div class="mb-3">
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option {{ $subject->status == 1 ? 'selected' : '' }} value="1">Active</option>
-                                        <option {{ $subject->status == 0 ? 'selected' : '' }} value="0">Block</option>
+                                        @foreach (status() as $key => $value)
+                                            <option value="{{ $key }}"
+                                                {{ $subject->status == $key ? 'selected' : '' }}>{{ $value }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
