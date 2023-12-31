@@ -93,6 +93,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('parent.children') }}" class="nav-link @yield('children')">
+                            <i class="nav-icon fas fa-user-alt"></i>
+                            <p>My Childrens</p>
+                        </a>
+                    </li>
                 @endif
 
                 <li class="nav-item">

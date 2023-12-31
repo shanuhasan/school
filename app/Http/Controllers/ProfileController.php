@@ -21,7 +21,7 @@ class ProfileController extends Controller
         $userId = Auth::user()->id;
         $user = User::where('id',$userId)->first();
 
-        return view('profile.edit', [
+        return view('common.profile.edit', [
             'user'=>$user,
         ]);
     }
@@ -77,7 +77,7 @@ class ProfileController extends Controller
 
     public function changePassword()
     {
-        return view('profile.change-password');
+        return view('common.profile.change-password');
 
     }
 

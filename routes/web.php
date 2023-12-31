@@ -138,6 +138,8 @@ Route::group(['middleware'=>['parent'],'prefix'=>'parent','as'=>'parent.'],funct
 
     Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
     Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
+
+    Route::get('/my-children', [ParentController::class, 'myChildren'])->name('children');
 });
 
 

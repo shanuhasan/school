@@ -6,12 +6,14 @@ use App\Models\User;
 use App\Models\Media;
 use App\Models\MstClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ParentController extends Controller
 {
+    // for admin panel
     public function index(Request $request)
     {
         $parents = User::getParents();
@@ -238,5 +240,16 @@ class ParentController extends Controller
         $student->parent_id = NULL;
         $student->save();
         return redirect()->back()->with('success','Assign Student Successfully Deleted.');
+    }
+
+    // for parent panel
+    public function myChildren()
+    {
+        $id = Auth::user()->id;
+        $model = User::getParentStudent($id);
+
+        return view('parent.my-children',[
+            'model' => $model,
+        ]);
     }
 }
