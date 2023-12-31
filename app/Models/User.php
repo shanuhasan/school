@@ -164,4 +164,25 @@ class User extends Authenticatable
                             ->get();
         return  $students;
     }
+
+    static public function getTeachers(){
+
+        $teachers = self::select('users.*')
+                        ->where('role',2)
+                        ->where('is_deleted',0);
+
+        if(!empty(Request::get('name')))
+        {
+            $teachers = $teachers->where('name','like','%'.Request::get('name').'%');
+        }
+
+        if(!empty(Request::get('email')))
+        {
+            $teachers = $teachers->where('email','like','%'.Request::get('email').'%');
+        }
+
+        $teachers = $teachers->orderBy('id','DESC')
+                        ->paginate(10);
+        return  $teachers;
+    }
 }

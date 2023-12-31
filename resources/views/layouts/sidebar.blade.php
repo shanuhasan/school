@@ -37,6 +37,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.teacher.index') }}" class="nav-link @yield('teacher')">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Teachers</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.student.index') }}" class="nav-link @yield('student')">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Students</p>

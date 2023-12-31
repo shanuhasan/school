@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Media;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -34,6 +36,37 @@ class ProfileController extends Controller
         {
             $user = User::find(Auth::user()->id);
             $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->city = $request->city;
+            $user->pincode = $request->pincode;
+            $user->permanent_address = $request->permanent_address;
+            $user->gender = $request->gender;
+            $user->dob = $request->dob;
+
+            if(!empty($request->image_id)){
+                $tempImage = Media::find($request->image_id);
+                $extArray = explode('.',$tempImage->name);
+                $ext = last($extArray);
+
+                $newImageName = $user->id .time(). '.'.$ext;
+                $sPath = public_path().'/media/'.$tempImage->name;
+                $dPath = public_path().'/uploads/user/'.$newImageName;
+                File::copy($sPath,$dPath);
+
+                //generate thumb
+                // $dPath = public_path().'/uploads/user/thumb/'.$newImageName;
+                // $img = Image::make($sPath);
+                // $img->fit(300, 200, function ($constraint) {
+                //     $constraint->upsize();
+                // });
+                // $img->save($dPath);
+
+                $user->image = $newImageName;
+                $user->save();
+
+            }
+            
             $user->save();
 
             return redirect()->back()->with('success','Profile updated successfully.');

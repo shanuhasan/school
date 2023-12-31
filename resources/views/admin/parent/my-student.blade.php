@@ -18,6 +18,9 @@
         <!-- Default box -->
         <div class="container-fluid">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Search Student to Assign Parent</h3>
+                </div>
                 <form action="" method="get">
                     <div class="card-body">
                         <div class="row">

@@ -7,6 +7,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\ClassSubjectController;
@@ -52,6 +53,14 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/admins/{id}/edit',[AdminController::class,'edit'])->name('admins.edit');
     Route::put('/admins/{id}',[AdminController::class,'update'])->name('admins.update');
     Route::get('/admins/{id}',[AdminController::class,'destroy'])->name('admins.delete');
+
+    //teachers
+    Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher.index');
+    Route::get('/teacher/create',[TeacherController::class,'create'])->name('teacher.create');
+    Route::post('/teacher/store',[TeacherController::class,'store'])->name('teacher.store');
+    Route::get('/teacher/{id}/edit',[TeacherController::class,'edit'])->name('teacher.edit');
+    Route::put('/teacher/{id}',[TeacherController::class,'update'])->name('teacher.update');
+    Route::get('/teacher/{id}',[TeacherController::class,'destroy'])->name('teacher.delete');
 
     //students
     Route::get('/student', [StudentController::class, 'index'])->name('student.index');

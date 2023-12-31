@@ -1,26 +1,26 @@
 @extends('layouts.app')
-@section('title', 'Profile')
-@section('profile', 'active')
+@section('title', 'Edit Teacher')
+@section('teacher', 'active')
 @section('content')
-
+    <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid my-2">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Profile</h1>
+                    <h1>Edit Teacher</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ getRoutes()['routeDashboard'] }}" class="btn btn-primary">Back</a>
+                    <a href="{{ route('admin.teacher.index') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
+        <!-- /.container-fluid -->
     </section>
-
+    <!-- Main content -->
     <section class="content">
         <!-- Default box -->
         <div class="container-fluid">
-            @include('message')
-            <form method="post" action="{{ getRoutes()['routeProfileUpdate'] }}">
+            <form action="" id="userForm" method="post">
                 @csrf
                 <div class="card">
                     <div class="card-body">
@@ -28,20 +28,9 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" id="name"
-                                        class="form-control @error('name') is-invalid	@enderror" placeholder="Name"
-                                        value="{{ $user->name }}">
-                                    @error('name')
-                                        <p class="invalid-feedback">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="email">Email</label>
-                                    <input type="email" readonly disabled name="email" id="email"
-                                        class="form-control" placeholder="Email" value="{{ $user->email }}">
-                                    <p class="error"></p>
+                                    <input type="text" name="name" id="name" value="{{ $teacher->name }}"
+                                        class="form-control" placeholder="Name">
+                                    <p></p>
                                 </div>
                             </div>
 
@@ -50,9 +39,9 @@
                                     <label for="gender">Gender<span style="color:red">*</span></label>
                                     <select name="gender" id="gender" class="form-control">
                                         <option value="">select</option>
-                                        <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>Male
+                                        <option value="Male" {{ $teacher->gender == 'Male' ? 'selected' : '' }}>Male
                                         </option>
-                                        <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>Female
+                                        <option value="Female" {{ $teacher->gender == 'Female' ? 'selected' : '' }}>Female
                                         </option>
                                     </select>
                                     <p class="error"></p>
@@ -63,7 +52,16 @@
                                 <div class="mb-3">
                                     <label for="dob">DOB<span style="color:red">*</span></label>
                                     <input type="date" name="dob" id="dob" class="form-control"
-                                        placeholder="DOB" value="{{ $user->dob }}">
+                                        placeholder="DOB" value="{{ $teacher->dob }}">
+                                    <p class="error"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="admission_date">Date of Joining<span style="color:red">*</span></label>
+                                    <input type="date" name="admission_date" id="admission_date" class="form-control"
+                                        placeholder="Date of Joining" value="{{ $teacher->admission_date }}">
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -71,7 +69,7 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="address">Address</label>
-                                    <textarea name="address" id="address" class="form-control" placeholder="Address" cols="5" rows="5">{{ $user->address }}</textarea>
+                                    <textarea name="address" id="address" class="form-control" placeholder="Address" cols="5" rows="5">{{ $teacher->address }}</textarea>
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -79,7 +77,7 @@
                                 <div class="mb-3">
                                     <label for="city">City</label>
                                     <input type="text" name="city" id="city" class="form-control"
-                                        placeholder="City" value="{{ $user->city }}">
+                                        placeholder="City" value="{{ $teacher->city }}">
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -87,7 +85,7 @@
                                 <div class="mb-3">
                                     <label for="pincode">Pincode</label>
                                     <input type="text" name="pincode" id="pincode" class="form-control only-number"
-                                        placeholder="Pincode" value="{{ $user->pincode }}">
+                                        placeholder="Pincode" value="{{ $teacher->pincode }}">
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -96,7 +94,7 @@
                                 <div class="mb-3">
                                     <label for="permanent_address">Permanent Address</label>
                                     <textarea name="permanent_address" id="permanent_address" class="form-control" placeholder="Permanent Address"
-                                        cols="10" rows="5">{{ $user->permanent_address }}</textarea>
+                                        cols="10" rows="5">{{ $teacher->permanent_address }}</textarea>
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -105,7 +103,37 @@
                                 <div class="mb-3">
                                     <label for="phone">Phone</label>
                                     <input type="text" name="phone" id="phone" class="form-control only-number"
-                                        placeholder="Phone" value="{{ $user->phone }}">
+                                        placeholder="Phone" value="{{ $teacher->phone }}">
+                                    <p class="error"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" value="{{ $teacher->email }}" readonly
+                                        id="email" class="form-control" placeholder="Email">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="status">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option {{ $teacher->status == 1 ? 'selected' : '' }} value="1">Active
+                                        </option>
+                                        <option {{ $teacher->status == 0 ? 'selected' : '' }} value="0">Block
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" placeholder="Password" id="password"
+                                        name="password">
+                                    <span>To change password you have to enter a value, otherwise leave blank.</span>
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -120,29 +148,67 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (!empty($user->image))
+                                @if (!empty($teacher->image))
                                     <div>
-                                        <img width="200" src="{{ asset('uploads/user/' . $user->image) }}"
+                                        <img width="200" src="{{ asset('uploads/user/' . $teacher->image) }}"
                                             alt="">
                                     </div>
                                 @endif
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div class="pb-5 pt-3">
                     <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{{ route('admin.teacher.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
             </form>
         </div>
         <!-- /.card -->
     </section>
-
+    <!-- /.content -->
 @endsection
 
 @section('script')
     <script>
+        $('#userForm').submit(function(e) {
+            e.preventDefault();
+            var elements = $(this);
+            $('button[type=submit]').prop('disabled', true);
+            $.ajax({
+                url: "{{ route('admin.teacher.update', $teacher->id) }}",
+                type: 'put',
+                data: elements.serializeArray(),
+                dataType: 'json',
+                success: function(response) {
+                    $('button[type=submit]').prop('disabled', false);
+                    if (response['status'] == true) {
+
+                        window.location.href = "{{ route('admin.teacher.index') }}";
+                        $('.error').removeClass('invalid-feedback').html('');
+                        $('input[type="text"],input[type="number"],select').removeClass('is-invalid');
+                    } else {
+
+                        if (response['notFound'] == true) {
+                            window.location.href = "{{ route('admin.teacher.index') }}";
+                        }
+
+                        var errors = response['errors'];
+
+                        $('.error').removeClass('invalid-feedback').html('');
+                        $('input[type="text"],input[type="number"],select').removeClass('is-invalid');
+                        $.each(errors, function(key, val) {
+                            $('#' + key).addClass('is-invalid').siblings('p').addClass(
+                                'invalid-feedback').html(val);
+                        });
+                    }
+                },
+                error: function(jqXHR) {
+                    console.log('Something went wrong.');
+                }
+            });
+        });
+
         Dropzone.autoDiscover = false;
         const dropzone = $("#image").dropzone({
             init: function() {
