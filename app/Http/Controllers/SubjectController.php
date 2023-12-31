@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MstSubject;
+use App\Models\ClassSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -128,4 +129,15 @@ class SubjectController extends Controller
         ]);
 
     }
+
+    // for student panel
+    public function studentSubjects(Request $request){
+
+        $subjects = ClassSubject::studentSubjects();
+
+        return view('student.subject',[
+            'subjects'=>$subjects
+        ]);
+    }
+    
 }

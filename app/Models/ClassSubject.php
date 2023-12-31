@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,6 +36,17 @@ class ClassSubject extends Model
 
         $subjects = $subjects->orderBy('class_subjects.id','DESC')
                         ->paginate(10);
+        return  $subjects;
+    }
+
+    static public function studentSubjects()
+    {
+        $subjects = self::select('class_subjects.*')
+                            ->where('is_deleted',0)
+                            ->where('status',1)
+                            ->where('class_id','=',Auth::user()->class_id)
+                            ->orderBy('id','DESC')
+                            ->get();
         return  $subjects;
     }
 

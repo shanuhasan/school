@@ -86,6 +86,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('student.subject') }}" class="nav-link @yield('subject')">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>Subjects</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 4)
                     <li class="nav-item">
                         <a href="{{ route('parent.dashboard') }}" class="nav-link @yield('dashboard')">

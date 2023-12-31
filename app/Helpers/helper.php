@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\MstClass;
+use App\Models\MstSubject;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -63,5 +64,27 @@ function getName($id)
         return '';
     }
     return $user->name;
+}
+
+function getSubjectName($id)
+{
+    $model = MstSubject::find($id);
+
+    if(empty($model))
+    {
+        return '';
+    }
+    return $model->name;
+}
+
+function getSubjectDetail($id)
+{
+    $model = MstSubject::find($id);
+
+    if(empty($model))
+    {
+        return [];
+    }
+    return $model;
 }
 
