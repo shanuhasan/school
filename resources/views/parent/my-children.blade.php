@@ -31,6 +31,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +51,10 @@
                                         @else
                                             <i class="fas fa-times"></i>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm"
+                                            href="{{ route('parent.children.subject', $student->guid) }}">Subject</a>
                                     </td>
                                 </tr>
                             @endforeach

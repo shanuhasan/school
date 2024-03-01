@@ -39,12 +39,12 @@ class ClassSubject extends Model
         return  $subjects;
     }
 
-    static public function studentSubjects()
+    static public function studentSubjects($class_id)
     {
         $subjects = self::select('class_subjects.*')
                             ->where('is_deleted',0)
                             ->where('status',1)
-                            ->where('class_id','=',Auth::user()->class_id)
+                            ->where('class_id','=',$class_id)
                             ->orderBy('id','DESC')
                             ->get();
         return  $subjects;

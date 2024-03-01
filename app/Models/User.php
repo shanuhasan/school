@@ -186,4 +186,14 @@ class User extends Authenticatable
                         ->paginate(10);
         return  $teachers;
     }
+
+    static public function getSingle($guid){
+
+        $user = self::select('users.*')
+                        ->where('guid',$guid)
+                        ->where('is_deleted',0)
+                        ->where('status',1)
+                        ->first();
+        return  $user;
+    }
 }

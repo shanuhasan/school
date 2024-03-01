@@ -49,6 +49,7 @@ class StudentController extends Controller
         if($validator->passes())
         {
             $model = new User();
+            $model->guid = GUIDv4();
             $model->name = $request->name;
             $model->phone = $request->phone;
             $model->class_id = $request->class_id;

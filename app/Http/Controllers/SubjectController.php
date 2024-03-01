@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\MstSubject;
 use App\Models\ClassSubject;
 use Illuminate\Http\Request;
@@ -133,10 +134,26 @@ class SubjectController extends Controller
     // for student panel
     public function studentSubjects(Request $request){
 
-        $subjects = ClassSubject::studentSubjects();
+        $subjects = ClassSubject::studentSubjects(Auth::user()->class_id);
 
         return view('student.subject',[
             'subjects'=>$subjects
+        ]);
+    }
+
+    public function parentChildrenSubject($guid){
+
+        $user = User::getSingle($guid);
+
+        if(empty($user)){
+            return redirect()->back();
+        }
+
+        $subjects = ClassSubject::studentSubjects($user->class_id);
+
+        return view('parent.student.subject',[
+            'subjects'=>$subjects,
+            'user'=>$user,
         ]);
     }
     
