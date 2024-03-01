@@ -11,6 +11,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\AssignClassTeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +108,16 @@ Route::group(['middleware'=>['admin'],'prefix'=>'admin','as'=>'admin.'],function
     Route::get('/assign-subject/{id}/single-edit',[ClassSubjectController::class,'singleEdit'])->name('assign_subject.single-edit');
     Route::put('/assign-subject-single/{id}',[ClassSubjectController::class,'singleUpdate'])->name('assign_subject.single-update');
     Route::get('/assign-subject/{id}',[ClassSubjectController::class,'destroy'])->name('assign_subject.delete');
+
+    //assign class teacher
+    Route::get('/assign-class-teacher', [AssignClassTeacherController::class, 'index'])->name('assign_class_teacher.index');
+    Route::get('/assign-class-teacher/create',[AssignClassTeacherController::class,'create'])->name('assign_class_teacher.create');
+    Route::post('/assign-class-teacher/store',[AssignClassTeacherController::class,'store'])->name('assign_class_teacher.store');
+    Route::get('/assign-class-teacher/{id}/edit',[AssignClassTeacherController::class,'edit'])->name('assign_class_teacher.edit');
+    Route::post('/assign-class-teacher/{id}',[AssignClassTeacherController::class,'update'])->name('assign_class_teacher.update');
+    Route::get('/assign-class-teacher/{id}/single-edit',[AssignClassTeacherController::class,'singleEdit'])->name('assign_class_teacher.single-edit');
+    Route::put('/assign-class-teacher-single/{id}',[AssignClassTeacherController::class,'singleUpdate'])->name('assign_class_teacher.single-update');
+    Route::get('/assign-class-teacher/{id}',[AssignClassTeacherController::class,'destroy'])->name('assign_class_teacher.delete');
 });
 
 

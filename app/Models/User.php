@@ -187,6 +187,18 @@ class User extends Authenticatable
         return  $teachers;
     }
 
+    static public function getClassTeachers(){
+
+        $teachers = self::select('users.*')
+                        ->where('role',2)
+                        ->where('is_deleted',0)
+                        ->where('status',1);
+
+        $teachers = $teachers->orderBy('id','DESC')
+                        ->get();
+        return  $teachers;
+    }
+
     static public function getSingle($guid){
 
         $user = self::select('users.*')

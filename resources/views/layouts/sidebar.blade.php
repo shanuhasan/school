@@ -72,6 +72,12 @@
                             <p>Assign Subjects</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.assign_class_teacher.index') }}" class="nav-link @yield('assign_class_teacher')">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Assign Class Teacher</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 2)
                     <li class="nav-item">
                         <a href="{{ route('teacher.dashboard') }}" class="nav-link @yield('dashboard')">
