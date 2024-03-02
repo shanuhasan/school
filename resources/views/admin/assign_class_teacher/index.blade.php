@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Assign Class Teacher')
 @section('assign_class_teacher', 'active')
+@section('academic_open', 'menu-open')
+@section('academic_active', 'active')
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
