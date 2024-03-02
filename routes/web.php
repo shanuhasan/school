@@ -130,6 +130,7 @@ Route::group(['middleware'=>['teacher'],'prefix'=>'teacher','as'=>'teacher.'],fu
     Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
     Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
 
+    Route::get('/my-student', [StudentController::class, 'myStudent'])->name('my_student');
     Route::get('/my-class-subject', [AssignClassTeacherController::class, 'myClassSubject'])->name('my_class_subject');
 });
 

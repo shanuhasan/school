@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Media;
 use App\Models\MstClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -240,5 +241,14 @@ class StudentController extends Controller
             'message'=>'Student deleted successfully.'
         ]);
 
+    }
+
+    // teacher panel
+
+    public function myStudent(){
+        $students = User::getTeacherStudents(Auth::user()->id);
+        return view('teacher.my_student',[
+            'students'=>$students
+        ]);
     }
 }

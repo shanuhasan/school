@@ -86,6 +86,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('teacher.my_student') }}" class="nav-link @yield('my_student')">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>My Student</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('teacher.my_class_subject') }}" class="nav-link @yield('my_class_subject')">
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>My Class & Subject</p>

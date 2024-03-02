@@ -208,4 +208,19 @@ class User extends Authenticatable
                         ->first();
         return  $user;
     }
+
+    static public function getTeacherStudents($teacher_id){
+
+        return self::select('users.*')
+                        ->join('mst_classes','mst_classes.id','users.class_id')
+                        ->join('assign_class_teachers','assign_class_teachers.class_id','mst_classes.id')
+                        ->where('role','=',3)
+                        ->where('users.is_deleted','=',0)
+                        ->where('assign_class_teachers.is_deleted','=',0)
+                        ->where('assign_class_teachers.status','=',1)
+                        ->where('assign_class_teachers.teacher_id','=',$teacher_id)
+                        ->orderBy('users.id','desc')
+                        ->groupBy('users.id')
+                        ->paginate(20);
+    }
 }

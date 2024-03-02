@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'My Class & Subject')
-@section('my_class_subject', 'active')
+@section('title', 'My Students')
+@section('my_student', 'active')
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid my-2">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>My Class & Subject</h1>
+                    <h1>My Students</h1>
                 </div>
             </div>
         </div>
@@ -24,23 +24,28 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Image</th>
+                                <th>Name</th>
                                 <th>Class</th>
-                                <th>Subject</th>
-                                <th>Subject Type</th>
-                                <th>Created By</th>
+                                <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @if ($classSubject->isNotEmpty())
+                            @if ($students->isNotEmpty())
                                 <?php $i = 1; ?>
-                                @foreach ($classSubject as $item)
+                                @foreach ($students as $student)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $item->class_name }}</td>
-                                        <td>{{ $item->subject_name }}</td>
-                                        <td>{{ $item->subject_type }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
+                                        <td>
+                                            <div class="image">
+                                                <img src="{{ !empty($student->image) ? asset('uploads/user/' . $student->image) : asset('admin-assets/dist/img/avatar5.png') }}"
+                                                    class="img-circle elevation-2" width='40'>
+                                            </div>
+                                        </td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ studentClassName($student->class_id) }}</td>
+                                        <td>{{ $student->email }}</td>
                                     </tr>
                                 @endforeach
                             @else
@@ -48,12 +53,11 @@
                                     <td colspan="5">Record Not Found</td>
                                 </tr>
                             @endif
-
                         </tbody>
                     </table>
                 </div>
                 <div class="card-footer clearfix">
-                    {{-- {!! $classSubject->appends(request()->input())->links('pagination::bootstrap-5') !!} --}}
+                    {!! $students->links('pagination::bootstrap-5') !!}
                 </div>
             </div>
         </div>
