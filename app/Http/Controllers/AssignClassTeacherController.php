@@ -233,4 +233,13 @@ class AssignClassTeacherController extends Controller
             ]);
         }
     }
+
+    // teacher panel
+    public function myClassSubject()
+    {
+        $classSubject = AssignClassTeacher::getMyClassSubject(Auth::user()->id);
+        return view('teacher.my_class_subject',[
+            'classSubject'=>$classSubject
+        ]);
+    }
 }

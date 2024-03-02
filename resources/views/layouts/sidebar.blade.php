@@ -85,6 +85,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teacher.my_class_subject') }}" class="nav-link @yield('my_class_subject')">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>My Class & Subject</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 3)
                     <li class="nav-item">
                         <a href="{{ route('student.dashboard') }}" class="nav-link @yield('dashboard')">
