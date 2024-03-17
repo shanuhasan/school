@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Week;
 use App\Models\MstClass;
 use App\Models\ClassSubject;
-use App\Models\ClassSubjectTimetable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ClassSubjectTimetable;
 use Illuminate\Support\Facades\Validator;
 
 class ClassTimetableController extends Controller
@@ -105,5 +106,41 @@ class ClassTimetableController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+    }
+
+    // for student panel
+    public function timetable()
+    {
+        $subjects = ClassSubject::studentSubjects(Auth::user()->class_id);
+
+        $data = [];
+        foreach ($subjects as $subject) {
+            $subArr['name'] = getSubjectName($subject->subject_id);
+            $getWeek = Week::getRecords();
+
+            $week = [];
+            foreach ($getWeek as $vl) {
+                $wd = [];
+                $wd['week_name'] = $vl->name;
+                $model = ClassSubjectTimetable::getClassAndSubject($subject->class_id, $subject->subject_id, $vl->id);
+                if (!empty($model)) {
+                    $wd['start_time'] = $model->start_time;
+                    $wd['end_time'] = $model->end_time;
+                    $wd['room_no'] = $model->room_no;
+                } else {
+                    $wd['start_time'] = '';
+                    $wd['end_time'] = '';
+                    $wd['room_no'] = '';
+                }
+
+                $week[] = $wd;
+            }
+            $subArr['week'] = $week;
+            $data[] = $subArr;
+        }
+
+        return view('student.timetable', [
+            'data' => $data,
+        ]);
     }
 }

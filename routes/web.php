@@ -157,6 +157,7 @@ Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'stude
     Route::post('/change-password', [ProfileController::class, 'changePasswordProcess'])->name('profile.changePasswordProcess');
 
     Route::get('/subject', [SubjectController::class, 'studentSubjects'])->name('subject');
+    Route::get('/timetable', [ClassTimetableController::class, 'timetable'])->name('timetable');
 });
 
 Route::group(['middleware' => ['parent'], 'prefix' => 'parent', 'as' => 'parent.'], function () {
