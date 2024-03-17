@@ -36,11 +36,11 @@ function getRoutes()
     }
 
     return [
-        'routeProfile'=>$routeProfile,
-        'routePassword'=>$routePassword,
-        'routeDashboard'=>$routeDashboard,
-        'routeProfileUpdate'=>$routeProfileUpdate,
-        'routePasswordProcess'=>$routePasswordProcess
+        'routeProfile' => $routeProfile,
+        'routePassword' => $routePassword,
+        'routeDashboard' => $routeDashboard,
+        'routeProfileUpdate' => $routeProfileUpdate,
+        'routePasswordProcess' => $routePasswordProcess
     ];
 }
 
@@ -48,8 +48,7 @@ function studentClassName($class_id)
 {
     $class = MstClass::find($class_id);
 
-    if(empty($class))
-    {
+    if (empty($class)) {
         return '';
     }
     return $class->name;
@@ -59,8 +58,7 @@ function getName($id)
 {
     $user = User::find($id);
 
-    if(empty($user))
-    {
+    if (empty($user)) {
         return '';
     }
     return $user->name;
@@ -70,8 +68,7 @@ function getSubjectName($id)
 {
     $model = MstSubject::find($id);
 
-    if(empty($model))
-    {
+    if (empty($model)) {
         return '';
     }
     return $model->name;
@@ -81,8 +78,7 @@ function getSubjectDetail($id)
 {
     $model = MstSubject::find($id);
 
-    if(empty($model))
-    {
+    if (empty($model)) {
         return [];
     }
     return $model;
@@ -93,7 +89,7 @@ function gender()
     $list = [
         'Male' => 'Male',
         'Female' => 'Female',
-        'Others' => 'Others',       
+        'Others' => 'Others',
     ];
 
     return $list;
@@ -104,7 +100,7 @@ function religion()
     $list = [
         'Muslim' => 'Muslim',
         'Hindu' => 'Hindu',
-        'Others' => 'Others',       
+        'Others' => 'Others',
     ];
 
     return $list;
@@ -114,13 +110,13 @@ function status()
 {
     $list = [
         '1' => 'Active',
-        '0' => 'Block',      
+        '0' => 'Block',
     ];
 
     return $list;
 }
 
-function GUIDv4 ($trim = true)
+function GUIDv4($trim = true)
 {
     // Windows
     if (function_exists('com_create_guid') === true) {
@@ -139,17 +135,24 @@ function GUIDv4 ($trim = true)
     }
 
     // Fallback (PHP 4.2+)
-    mt_srand((double)microtime() * 10000);
+    mt_srand((float)microtime() * 10000);
     $charid = strtolower(md5(uniqid(rand(), true)));
     $hyphen = chr(45);                  // "-"
     $lbrace = $trim ? "" : chr(123);    // "{"
     $rbrace = $trim ? "" : chr(125);    // "}"
-    $guidv4 = $lbrace.
-              substr($charid,  0,  8).$hyphen.
-              substr($charid,  8,  4).$hyphen.
-              substr($charid, 12,  4).$hyphen.
-              substr($charid, 16,  4).$hyphen.
-              substr($charid, 20, 12).
-              $rbrace;
+    $guidv4 = $lbrace .
+        substr($charid,  0,  8) . $hyphen .
+        substr($charid,  8,  4) . $hyphen .
+        substr($charid, 12,  4) . $hyphen .
+        substr($charid, 16,  4) . $hyphen .
+        substr($charid, 20, 12) .
+        $rbrace;
     return $guidv4;
+}
+
+function pre($data)
+{
+    echo "<pre>";
+    print_r($data);
+    die;
 }

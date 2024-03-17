@@ -82,6 +82,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('admin.class_timetable.index') }}"
+                                    class="nav-link @yield('class_timetable')">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Class Timetable</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('admin.assign_class_teacher.index') }}"
                                     class="nav-link @yield('assign_class_teacher')">
                                     <i class="far fa-circle nav-icon"></i>
