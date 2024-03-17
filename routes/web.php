@@ -145,6 +145,7 @@ Route::group(['middleware' => ['teacher'], 'prefix' => 'teacher', 'as' => 'teach
 
     Route::get('/my-student', [StudentController::class, 'myStudent'])->name('my_student');
     Route::get('/my-class-subject', [AssignClassTeacherController::class, 'myClassSubject'])->name('my_class_subject');
+    Route::get('/class-timetable/{class_id}/{subject_id}', [ClassTimetableController::class, 'teacherClassTimetable'])->name('timetable');
 });
 
 Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'student.'], function () {
@@ -177,10 +178,3 @@ Route::group(['middleware' => ['parent'], 'prefix' => 'parent', 'as' => 'parent.
 Route::post('/upload-image', [UploadImageController::class, 'create'])->name('temp-images.create');
 
 require __DIR__ . '/auth.php';
-
-// Route::group(['middleware'=>['auth:admin'],'prefix'=>'admin','as'=>'admin.'],function(){
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
-
-
-// require __DIR__.'/adminauth.php';

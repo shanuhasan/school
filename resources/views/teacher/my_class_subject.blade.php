@@ -27,7 +27,9 @@
                                 <th>Class</th>
                                 <th>Subject</th>
                                 <th>Subject Type</th>
+                                <th>Today Timetable</th>
                                 <th>Created By</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +42,22 @@
                                         <td>{{ $item->class_name }}</td>
                                         <td>{{ $item->subject_name }}</td>
                                         <td>{{ $item->subject_type }}</td>
+                                        <td>
+                                            @php
+                                                $model = $item->getTeacherClassTimetable(
+                                                    $item->class_id,
+                                                    $item->subject_id,
+                                                );
+                                            @endphp
+                                            @if (!empty($model))
+                                                {{ date('h:i A', strtotime($model->start_time)) . ' to ' . date('h:i A', strtotime($model->end_time)) }}
+                                                <br>
+                                                Room No. - {{ $model->room_no }}
+                                            @endif
+                                        </td>
                                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
+                                        <td><a href="{{ route('teacher.timetable', ['class_id' => $item->class_id, 'subject_id' => $item->subject_id]) }}"
+                                                class="btn btn-info btn-sm">Timetable</a></td>
                                     </tr>
                                 @endforeach
                             @else

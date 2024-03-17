@@ -143,4 +143,33 @@ class ClassTimetableController extends Controller
             'data' => $data,
         ]);
     }
+
+    // for teacher panel
+    public function teacherClassTimetable($class_id, $subject_id)
+    {
+        $getWeek = Week::getRecords();
+        $week = [];
+        foreach ($getWeek as $vl) {
+            $wd = [];
+            $wd['week_name'] = $vl->name;
+            $model = ClassSubjectTimetable::getClassAndSubject($class_id, $subject_id, $vl->id);
+            if (!empty($model)) {
+                $wd['start_time'] = $model->start_time;
+                $wd['end_time'] = $model->end_time;
+                $wd['room_no'] = $model->room_no;
+            } else {
+                $wd['start_time'] = '';
+                $wd['end_time'] = '';
+                $wd['room_no'] = '';
+            }
+
+            $week[] = $wd;
+        }
+
+        return view('teacher.timetable', [
+            'data' => $week,
+            'class_id' => $class_id,
+            'subject_id' => $subject_id,
+        ]);
+    }
 }

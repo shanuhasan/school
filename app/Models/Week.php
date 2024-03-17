@@ -13,4 +13,9 @@ class Week extends Model
     {
         return self::get();
     }
+
+    static public function findByName($name)
+    {
+        return self::where('name', $name)->first();
+    }
 }

@@ -74,6 +74,16 @@ function getSubjectName($id)
     return $model->name;
 }
 
+function getClassName($id)
+{
+    $model = MstClass::find($id);
+
+    if (empty($model)) {
+        return '';
+    }
+    return $model->name;
+}
+
 function getSubjectDetail($id)
 {
     $model = MstSubject::find($id);
