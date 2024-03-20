@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ParentController;
@@ -131,6 +132,14 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::get('/class-timetable/{id}/single-edit', [ClassTimetableController::class, 'singleEdit'])->name('class_timetable.single-edit');
     Route::put('/class-timetable-single/{id}', [ClassTimetableController::class, 'singleUpdate'])->name('class_timetable.single-update');
     Route::get('/class-timetable/{id}', [ClassTimetableController::class, 'destroy'])->name('class_timetable.delete');
+
+    //examination
+    Route::get('/exam', [ExamController::class, 'index'])->name('exam.index');
+    Route::get('/exam/create', [ExamController::class, 'create'])->name('exam.create');
+    Route::post('/exam/store', [ExamController::class, 'store'])->name('exam.store');
+    Route::get('/exam/{id}/edit', [ExamController::class, 'edit'])->name('exam.edit');
+    Route::put('/exam/{id}', [ExamController::class, 'update'])->name('exam.update');
+    Route::get('/exam/{id}', [ExamController::class, 'destroy'])->name('exam.delete');
 });
 
 

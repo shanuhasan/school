@@ -97,30 +97,23 @@
                             </li>
                         </ul>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('admin.class.index') }}" class="nav-link @yield('class')">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>Classes</p>
+                    <li class="nav-item @yield('exam_open')">
+                        <a href="#" class="nav-link @yield('exam_active')">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                Examination
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.exam.index') }}" class="nav-link @yield('exam')">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Exam</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.subject.index') }}" class="nav-link @yield('subject')">
-                            <i class="nav-icon fas fa-book"></i>
-                            <p>Subjects</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.assign_subject.index') }}" class="nav-link @yield('assign_subject')">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>Assign Subjects</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.assign_class_teacher.index') }}" class="nav-link @yield('assign_class_teacher')">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>Assign Class Teacher</p>
-                        </a>
-                    </li> --}}
                 @elseif(Auth::user()->getOriginal('role') == 2)
                     <li class="nav-item">
                         <a href="{{ route('teacher.dashboard') }}" class="nav-link @yield('dashboard')">

@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,111 +44,101 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    static public function getAdmins(){
+    static public function getAdmins()
+    {
 
         $admins = self::select('users.*')
-                        ->where('role',1)
-                        // ->where('id','!=',Auth::user()->id)
-                        ->where('is_deleted',0);
+            ->where('role', 1)
+            // ->where('id','!=',Auth::user()->id)
+            ->where('is_deleted', 0);
 
-        if(!empty(Request::get('name')))
-        {
-            $admins = $admins->where('name','like','%'.Request::get('name').'%');
+        if (!empty(Request::get('name'))) {
+            $admins = $admins->where('name', 'like', '%' . Request::get('name') . '%');
         }
-        if(!empty(Request::get('email')))
-        {
-            $admins = $admins->where('email','like','%'.Request::get('email').'%');
+        if (!empty(Request::get('email'))) {
+            $admins = $admins->where('email', 'like', '%' . Request::get('email') . '%');
         }
 
-        $admins = $admins->orderBy('id','DESC')
-                        ->paginate(10);
+        $admins = $admins->orderBy('id', 'DESC')
+            ->paginate(10);
         return  $admins;
     }
 
-    static public function getStudents(){
+    static public function getStudents()
+    {
 
         $students = self::select('users.*')
-                        ->where('role',3)
-                        ->where('is_deleted',0);
+            ->where('role', 3)
+            ->where('is_deleted', 0);
 
-        if(!empty(Request::get('name')))
-        {
-            $students = $students->where('name','like','%'.Request::get('name').'%');
+        if (!empty(Request::get('name'))) {
+            $students = $students->where('name', 'like', '%' . Request::get('name') . '%');
         }
 
-        if(!empty(Request::get('last_name')))
-        {
-            $students = $students->where('last_name','like','%'.Request::get('last_name').'%');
+        if (!empty(Request::get('last_name'))) {
+            $students = $students->where('last_name', 'like', '%' . Request::get('last_name') . '%');
         }
 
-        if(!empty(Request::get('class_id')))
-        {
-            $students = $students->where('class_id','=',Request::get('class_id'));
+        if (!empty(Request::get('class_id'))) {
+            $students = $students->where('class_id', '=', Request::get('class_id'));
         }
 
-        if(!empty(Request::get('email')))
-        {
-            $students = $students->where('email','like','%'.Request::get('email').'%');
+        if (!empty(Request::get('email'))) {
+            $students = $students->where('email', 'like', '%' . Request::get('email') . '%');
         }
 
-        $students = $students->orderBy('id','DESC')
-                        ->paginate(10);
+        $students = $students->orderBy('id', 'DESC')
+            ->paginate(10);
         return  $students;
     }
 
-    static public function getParents(){
+    static public function getParents()
+    {
 
         $parents = self::select('users.*')
-                        ->where('role',4)
-                        ->where('is_deleted',0);
+            ->where('role', 4)
+            ->where('is_deleted', 0);
 
-        if(!empty(Request::get('name')))
-        {
-            $parents = $parents->where('name','like','%'.Request::get('name').'%');
+        if (!empty(Request::get('name'))) {
+            $parents = $parents->where('name', 'like', '%' . Request::get('name') . '%');
         }
 
-        if(!empty(Request::get('email')))
-        {
-            $parents = $parents->where('email','like','%'.Request::get('email').'%');
+        if (!empty(Request::get('email'))) {
+            $parents = $parents->where('email', 'like', '%' . Request::get('email') . '%');
         }
 
-        $parents = $parents->orderBy('id','DESC')
-                        ->paginate(10);
+        $parents = $parents->orderBy('id', 'DESC')
+            ->paginate(10);
         return  $parents;
     }
 
     static public function getSearchStudent()
     {
         // dd(Request::all());
-        if(!empty(Request::get('id')) || !empty(Request::get('name')) || !empty(Request::get('last_name'))  || !empty(Request::get('email')))
-        {
+        if (!empty(Request::get('id')) || !empty(Request::get('name')) || !empty(Request::get('last_name'))  || !empty(Request::get('email'))) {
             $students = self::select('users.*')
-                                    ->where('users.role',3)
-                                    ->where('users.is_deleted',0);
+                ->where('users.role', 3)
+                ->where('users.is_deleted', 0);
 
-            if(!empty(Request::get('id')))
-            {
-                $students = $students->where('users.id','=',Request::get('id'));
+            if (!empty(Request::get('id'))) {
+                $students = $students->where('users.id', '=', Request::get('id'));
             }
 
-            if(!empty(Request::get('name')))
-            {
-                $students = $students->where('users.name','like','%'.Request::get('name').'%');
+            if (!empty(Request::get('name'))) {
+                $students = $students->where('users.name', 'like', '%' . Request::get('name') . '%');
             }
 
-            if(!empty(Request::get('last_name')))
-            {
-                $students = $students->where('users.last_name','like','%'.Request::get('last_name').'%');
-            }
-        
-            if(!empty(Request::get('email')))
-            {
-                $students = $students->where('users.email','like','%'.Request::get('email').'%');
+            if (!empty(Request::get('last_name'))) {
+                $students = $students->where('users.last_name', 'like', '%' . Request::get('last_name') . '%');
             }
 
-            $students = $students->orderBy('users.id','DESC')
-                        ->limit(50)
-                        ->get();
+            if (!empty(Request::get('email'))) {
+                $students = $students->where('users.email', 'like', '%' . Request::get('email') . '%');
+            }
+
+            $students = $students->orderBy('users.id', 'DESC')
+                ->limit(50)
+                ->get();
             return  $students;
         }
     }
@@ -157,70 +146,72 @@ class User extends Authenticatable
     static public function getParentStudent($parentId)
     {
         $students = self::select('users.*')
-                            ->where('users.role',3)
-                            ->where('users.parent_id',$parentId)
-                            ->where('users.is_deleted',0)
-                            ->orderBy('users.id','DESC')
-                            ->limit(50)
-                            ->get();
+            ->where('users.role', 3)
+            ->where('users.parent_id', $parentId)
+            ->where('users.is_deleted', 0)
+            ->orderBy('users.id', 'DESC')
+            ->limit(50)
+            ->get();
         return  $students;
     }
 
-    static public function getTeachers(){
+    static public function getTeachers()
+    {
 
         $teachers = self::select('users.*')
-                        ->where('role',2)
-                        ->where('is_deleted',0);
+            ->where('role', 2)
+            ->where('is_deleted', 0);
 
-        if(!empty(Request::get('name')))
-        {
-            $teachers = $teachers->where('name','like','%'.Request::get('name').'%');
+        if (!empty(Request::get('name'))) {
+            $teachers = $teachers->where('name', 'like', '%' . Request::get('name') . '%');
         }
 
-        if(!empty(Request::get('email')))
-        {
-            $teachers = $teachers->where('email','like','%'.Request::get('email').'%');
+        if (!empty(Request::get('email'))) {
+            $teachers = $teachers->where('email', 'like', '%' . Request::get('email') . '%');
         }
 
-        $teachers = $teachers->orderBy('id','DESC')
-                        ->paginate(10);
+        $teachers = $teachers->orderBy('id', 'DESC')
+            ->paginate(10);
         return  $teachers;
     }
 
-    static public function getClassTeachers(){
+    static public function getClassTeachers()
+    {
 
         $teachers = self::select('users.*')
-                        ->where('role',2)
-                        ->where('is_deleted',0)
-                        ->where('status',1);
+            ->where('role', 2)
+            ->where('is_deleted', 0)
+            ->where('status', 1);
 
-        $teachers = $teachers->orderBy('id','DESC')
-                        ->get();
+        $teachers = $teachers->orderBy('id', 'DESC')
+            ->get();
         return  $teachers;
     }
 
-    static public function getSingle($guid){
+    static public function getSingle($guid)
+    {
 
         $user = self::select('users.*')
-                        ->where('guid',$guid)
-                        ->where('is_deleted',0)
-                        ->where('status',1)
-                        ->first();
+            ->where('guid', $guid)
+            ->where('is_deleted', 0)
+            ->where('status', 1)
+            ->first();
         return  $user;
     }
 
-    static public function getTeacherStudents($teacher_id){
+    static public function getTeacherStudents($teacher_id)
+    {
 
         return self::select('users.*')
-                        ->join('mst_classes','mst_classes.id','users.class_id')
-                        ->join('assign_class_teachers','assign_class_teachers.class_id','mst_classes.id')
-                        ->where('role','=',3)
-                        ->where('users.is_deleted','=',0)
-                        ->where('assign_class_teachers.is_deleted','=',0)
-                        ->where('assign_class_teachers.status','=',1)
-                        ->where('assign_class_teachers.teacher_id','=',$teacher_id)
-                        ->orderBy('users.id','desc')
-                        ->groupBy('users.id')
-                        ->paginate(20);
+            ->join('mst_classes', 'mst_classes.id', 'users.class_id')
+            ->join('assign_class_teachers', 'assign_class_teachers.class_id', 'mst_classes.id')
+            ->where('role', '=', 3)
+            ->where('users.is_deleted', '=', 0)
+            ->where('assign_class_teachers.is_deleted', '=', 0)
+            ->where('assign_class_teachers.status', '=', 1)
+            ->where('assign_class_teachers.teacher_id', '=', $teacher_id)
+            ->orderBy('users.id', 'desc')
+            ->groupBy('users.id')
+            ->paginate(20);
     }
 }
