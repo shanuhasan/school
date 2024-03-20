@@ -26,6 +26,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Type</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,9 @@
                                         <td>{{ $i++ }}</td>
                                         <td>{{ getSubjectName($subject->subject_id) }}</td>
                                         <td>{{ getSubjectDetail($subject->subject_id)->type }}</td>
+                                        <td><a href="{{ route('parent.timetable', ['class_id' => $subject->class_id, 'subject_id' => $subject->subject_id, 'student_id' => $user->id]) }}"
+                                                class="btn btn-info btn-sm">Timetable</a></td>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else

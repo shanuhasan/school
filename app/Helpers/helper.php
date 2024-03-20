@@ -64,6 +64,17 @@ function getName($id)
     return $user->name;
 }
 
+function getUserFullName($id)
+{
+    $user = User::find($id);
+
+    if (empty($user)) {
+        return '';
+    }
+    return $user->name . ' ' . $user->last_name;
+}
+
+
 function getSubjectName($id)
 {
     $model = MstSubject::find($id);
