@@ -140,6 +140,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::get('/exam/{id}/edit', [ExamController::class, 'edit'])->name('exam.edit');
     Route::put('/exam/{id}', [ExamController::class, 'update'])->name('exam.update');
     Route::get('/exam/{id}', [ExamController::class, 'destroy'])->name('exam.delete');
+
+
+
+    Route::get('/exam_schedule', [ExamController::class, 'examSchedule'])->name('exam_schedule.index');
+    Route::post('/exam_schedule/store', [ExamController::class, 'storeSchedule'])->name('exam_schedule.store');
 });
 
 

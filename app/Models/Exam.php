@@ -24,4 +24,12 @@ class Exam extends Model
             ->paginate(10);
         return  $exams;
     }
+
+    static public function getRecoards()
+    {
+        $exams = self::where('is_deleted', 0)
+            ->where('status', 1)
+            ->get();
+        return  $exams;
+    }
 }
