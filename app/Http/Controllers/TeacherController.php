@@ -17,34 +17,36 @@ class TeacherController extends Controller
         $teachers = User::getTeachers();
 
         $getClass = MstClass::getClass();
-        return view('admin.teacher.index',[
-            'teachers'=>$teachers,
-            'getClass'=>$getClass,
+        return view('admin.teacher.index', [
+            'teachers' => $teachers,
+            'getClass' => $getClass,
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
 
         $getClass = MstClass::getClass();
-        return view('admin.teacher.create',[
+        return view('admin.teacher.create', [
             'getClass' => $getClass
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        $validator = Validator::make($request->all(),[
-            'name'=>'required|min:3',
-            'phone'=>'required',
-            'gender'=>'required',
-            'status'=>'required',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|min:5|confirmed',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3',
+            'phone' => 'required',
+            'gender' => 'required',
+            'status' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:5|confirmed',
         ]);
 
-        if($validator->passes())
-        {
+        if ($validator->passes()) {
             $model = new User();
+            $model->guid = GUIDv4();
             $model->name = $request->name;
             $model->phone = $request->phone;
             $model->address = $request->address;
@@ -58,17 +60,17 @@ class TeacherController extends Controller
             $model->role = 2;
             $model->status = $request->status;
             $model->password = Hash::make($request->password);
-            
+
             //save image
-            if(!empty($request->image_id)){
+            if (!empty($request->image_id)) {
                 $tempImage = Media::find($request->image_id);
-                $extArray = explode('.',$tempImage->name);
+                $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
 
-                $newImageName = $model->id .time(). '.'.$ext;
-                $sPath = public_path().'/media/'.$tempImage->name;
-                $dPath = public_path().'/uploads/user/'.$newImageName;
-                File::copy($sPath,$dPath);
+                $newImageName = $model->id . time() . '.' . $ext;
+                $sPath = public_path() . '/media/' . $tempImage->name;
+                $dPath = public_path() . '/uploads/user/' . $newImageName;
+                File::copy($sPath, $dPath);
 
                 //generate thumb
                 // $dPath = public_path().'/uploads/user/thumb/'.$newImageName;
@@ -80,59 +82,56 @@ class TeacherController extends Controller
 
                 $model->image = $newImageName;
                 $model->save();
-
             }
             $model->save();
 
-            session()->flash('success','Teacher added successfully.');
+            session()->flash('success', 'Teacher added successfully.');
             return response()->json([
-                'status'=>true
+                'status' => true
             ]);
-        }else{
+        } else {
             return response()->json([
-                'status'=>false,
-                'errors'=>$validator->errors()
+                'status' => false,
+                'errors' => $validator->errors()
             ]);
         }
     }
 
-    public function edit($id , Request $request){
-
-        $teacher = User::find($id);
-        if(empty($teacher))
-        {
+    public function edit($guid)
+    {
+        $teacher = User::findByGuid($guid);
+        if (empty($teacher)) {
             return redirect()->route('admin.teacher.index');
         }
         $getClass = MstClass::getClass();
 
-        return view('admin.teacher.edit',[
-            'teacher'=>$teacher,
-            'getClass'=>$getClass,
-        ]);        
+        return view('admin.teacher.edit', [
+            'teacher' => $teacher,
+            'getClass' => $getClass,
+        ]);
     }
 
-    public function update($id, Request $request){
-
+    public function update($id, Request $request)
+    {
         $model = User::find($id);
-        if(empty($model))
-        {
-            $request->session()->flash('error','Teacher not found.');
+        if (empty($model)) {
+            $request->session()->flash('error', 'Teacher not found.');
             return response()->json([
-                'status'=>false,
-                'notFound'=>true,
-                'message'=>'Teacher not found.'
+                'status' => false,
+                'notFound' => true,
+                'message' => 'Teacher not found.'
             ]);
         }
 
-        $validator = Validator::make($request->all(),[
-            'email'=>'required|email|unique:users,email,'.$id.',id',
-            'name'=>'required|min:3',
-            'phone'=>'required',
-            'gender'=>'required',
-            'status'=>'required',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email,' . $id . ',id',
+            'name' => 'required|min:3',
+            'phone' => 'required',
+            'gender' => 'required',
+            'status' => 'required',
         ]);
 
-        if($validator->passes()){
+        if ($validator->passes()) {
 
             $model->name = $request->name;
             $model->phone = $request->phone;
@@ -145,8 +144,7 @@ class TeacherController extends Controller
             $model->dob = $request->dob;
             $model->admission_date = $request->admission_date;
 
-            if($request->password !="")
-            {
+            if ($request->password != "") {
                 $model->password = Hash::make($request->password);
             }
 
@@ -155,15 +153,15 @@ class TeacherController extends Controller
             $oldImage = $model->image;
 
             //save image
-            if(!empty($request->image_id)){
+            if (!empty($request->image_id)) {
                 $tempImage = Media::find($request->image_id);
-                $extArray = explode('.',$tempImage->name);
+                $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
 
-                $newImageName = $model->id .time(). '.'.$ext;
-                $sPath = public_path().'/media/'.$tempImage->name;
-                $dPath = public_path().'/uploads/user/'.$newImageName;
-                File::copy($sPath,$dPath);
+                $newImageName = $model->id . time() . '.' . $ext;
+                $sPath = public_path() . '/media/' . $tempImage->name;
+                $dPath = public_path() . '/uploads/user/' . $newImageName;
+                File::copy($sPath, $dPath);
 
                 //generate thumb
                 // $dPath = public_path().'/uploads/user/thumb/'.$newImageName;
@@ -178,44 +176,41 @@ class TeacherController extends Controller
 
                 //delete old image
                 // File::delete(public_path().'/uploads/user/thumb/'.$oldImage);
-                File::delete(public_path().'/uploads/user/'.$oldImage);
-                
+                File::delete(public_path() . '/uploads/user/' . $oldImage);
             }
 
-            $request->session()->flash('success','Teacher updated successfully.');
+            $request->session()->flash('success', 'Teacher updated successfully.');
             return response()->json([
-                'status'=>true,
-                'message'=>'Teacher updated successfully.'  
+                'status' => true,
+                'message' => 'Teacher updated successfully.'
             ]);
-
-        }else{
+        } else {
             return response()->json([
-                'status'=>false,
-                'errors'=>$validator->errors()  
+                'status' => false,
+                'errors' => $validator->errors()
             ]);
         }
     }
 
-    public function destroy($id, Request $request){
+    public function destroy($id, Request $request)
+    {
         $model = User::find($id);
-        if(empty($model))
-        {
-            $request->session()->flash('error','Teacher not found.');
+        if (empty($model)) {
+            $request->session()->flash('error', 'Teacher not found.');
             return response()->json([
-                'status'=>true,
-                'message'=>'Teacher not found.'
+                'status' => true,
+                'message' => 'Teacher not found.'
             ]);
         }
 
         $model->is_deleted = 1;
         $model->save();
 
-        $request->session()->flash('success','Teacher deleted successfully.');
+        $request->session()->flash('success', 'Teacher deleted successfully.');
 
         return response()->json([
-            'status'=>true,
-            'message'=>'Teacher deleted successfully.'
+            'status' => true,
+            'message' => 'Teacher deleted successfully.'
         ]);
-
     }
 }

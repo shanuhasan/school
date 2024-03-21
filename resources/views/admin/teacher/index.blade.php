@@ -24,25 +24,24 @@
                 <form action="" method="get">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Name"
                                         value="{{ Request::get('name') }}">
                                 </div>
-                                <button type="submit" class="btn btn-success">Filter</button>
-                                <a href="{{ route('admin.teacher.index') }}" class="btn btn-danger">Reset</a>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="email">Email</label>
                                     <input type="text" name="email" class="form-control" placeholder="Email"
                                         value="{{ Request::get('email') }}">
                                 </div>
                             </div>
-
                         </div>
+                        <button type="submit" class="btn btn-success">Filter</button>
+                        <a href="{{ route('admin.teacher.index') }}" class="btn btn-danger">Reset</a>
                     </div>
                 </form>
             </div>
@@ -97,7 +96,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.teacher.edit', $teacher->id) }}">
+                                            <a href="{{ route('admin.teacher.edit', $teacher->guid) }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="javascript:void()" onclick="deleteTeacher({{ $teacher->id }})"

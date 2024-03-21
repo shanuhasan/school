@@ -24,25 +24,24 @@
                 <form action="" method="get">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control js-filterdatepicker"
                                         placeholder="Name" value="{{ Request::get('name') }}">
                                 </div>
-                                <button type="submit" class="btn btn-success">Filter</button>
-                                <a href="{{ route('admin.admins.index') }}" class="btn btn-danger">Reset</a>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="email">Email</label>
                                     <input type="text" name="email" class="form-control js-filterdatepicker"
                                         placeholder="Email" value="{{ Request::get('email') }}">
                                 </div>
                             </div>
-
                         </div>
+                        <button type="submit" class="btn btn-success">Filter</button>
+                        <a href="{{ route('admin.admins.index') }}" class="btn btn-danger">Reset</a>
                     </div>
                 </form>
             </div>
@@ -91,13 +90,16 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.admins.edit', $admin->id) }}">
+                                            <a href="{{ route('admin.admins.edit', $admin->guid) }}">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void()" onclick="deleteAdmin({{ $admin->id }})"
-                                                class="text-danger w-4 h-4 mr-1">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                            @if (Auth::user()->id != $admin->id)
+                                                <a href="javascript:void()" onclick="deleteAdmin({{ $admin->id }})"
+                                                    class="text-danger w-4 h-4 mr-1">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

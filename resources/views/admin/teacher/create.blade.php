@@ -28,7 +28,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name<span style="color:red">*</span></label>
-                                    <input type="text" name="name" id="name" class="form-control"
+                                    <input type="text" name="name" id="name" class="form-control text-to-upper"
                                         placeholder="Name">
                                     <p class="error"></p>
                                 </div>
@@ -72,7 +72,7 @@
                                     <p class="error"></p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="city">City</label>
                                     <input type="text" name="city" id="city" class="form-control"
@@ -80,11 +80,11 @@
                                     <p class="error"></p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="pincode">Pincode</label>
-                                    <input type="text" name="pincode" id="pincode" class="form-control only-number"
-                                        placeholder="Pincode">
+                                    <input type="text" name="pincode" maxlength="6" id="pincode"
+                                        class="form-control only-number" placeholder="Pincode">
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input type="hidden" name="image_id" id="image_id" value="">
                                 <div class="mb-3">
                                     <label for="image">Image</label>
@@ -156,13 +156,10 @@
                                     <p class="error"></p>
                                 </div>
                             </div>
-
                         </div>
+                        <button type="submit" class="btn btn-success">Create</button>
+                        <a href="{{ route('admin.teacher.index') }}" class="btn btn-info">Cancel</a>
                     </div>
-                </div>
-                <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a href="{{ route('admin.teacher.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
             </form>
         </div>

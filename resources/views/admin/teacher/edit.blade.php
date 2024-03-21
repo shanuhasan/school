@@ -29,7 +29,7 @@
                                 <div class="mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" id="name" value="{{ $teacher->name }}"
-                                        class="form-control" placeholder="Name">
+                                        class="form-control text-to-upper" placeholder="Name">
                                     <p></p>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                     <p class="error"></p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="city">City</label>
                                     <input type="text" name="city" id="city" class="form-control"
@@ -82,11 +82,12 @@
                                     <p class="error"></p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="pincode">Pincode</label>
-                                    <input type="text" name="pincode" id="pincode" class="form-control only-number"
-                                        placeholder="Pincode" value="{{ $teacher->pincode }}">
+                                    <input type="text" name="pincode" id="pincode" maxlength="6"
+                                        class="form-control only-number" placeholder="Pincode"
+                                        value="{{ $teacher->pincode }}">
                                     <p class="error"></p>
                                 </div>
                             </div>
@@ -150,19 +151,19 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
                                 @if (!empty($teacher->image))
-                                    <div>
+                                    <div class="image">
                                         <img width="200" src="{{ asset('uploads/user/' . $teacher->image) }}"
-                                            alt="">
+                                            class="img-circle elevation-2" width='40'>
                                     </div>
                                 @endif
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <a href="{{ route('admin.teacher.index') }}" class="btn btn-info">Cancel</a>
                     </div>
-                </div>
-                <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('admin.teacher.index') }}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
             </form>
         </div>

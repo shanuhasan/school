@@ -53,7 +53,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
     Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.create');
     Route::post('/admins/store', [AdminController::class, 'store'])->name('admins.store');
-    Route::get('/admins/{id}/edit', [AdminController::class, 'edit'])->name('admins.edit');
+    Route::get('/admins/{guid}/edit', [AdminController::class, 'edit'])->name('admins.edit');
     Route::put('/admins/{id}', [AdminController::class, 'update'])->name('admins.update');
     Route::get('/admins/{id}', [AdminController::class, 'destroy'])->name('admins.delete');
 
@@ -61,7 +61,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher.index');
     Route::get('/teacher/create', [TeacherController::class, 'create'])->name('teacher.create');
     Route::post('/teacher/store', [TeacherController::class, 'store'])->name('teacher.store');
-    Route::get('/teacher/{id}/edit', [TeacherController::class, 'edit'])->name('teacher.edit');
+    Route::get('/teacher/{guid}/edit', [TeacherController::class, 'edit'])->name('teacher.edit');
     Route::put('/teacher/{id}', [TeacherController::class, 'update'])->name('teacher.update');
     Route::get('/teacher/{id}', [TeacherController::class, 'destroy'])->name('teacher.delete');
 

@@ -24,16 +24,15 @@
                 <form action="" method="get">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Name"
                                         value="{{ Request::get('name') }}">
                                 </div>
-                                <button type="submit" class="btn btn-success">Filter</button>
-                                <a href="{{ route('admin.student.index') }}" class="btn btn-danger">Reset</a>
+
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="class_id">Class</label>
                                     <select name="class_id" id="class_id" class="form-control">
@@ -48,7 +47,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="email">Email</label>
                                     <input type="text" name="email" class="form-control" placeholder="Email"
@@ -57,6 +56,8 @@
                             </div>
 
                         </div>
+                        <button type="submit" class="btn btn-success">Filter</button>
+                        <a href="{{ route('admin.student.index') }}" class="btn btn-danger">Reset</a>
                     </div>
                 </form>
             </div>
