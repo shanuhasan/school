@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Exam;
 use App\Models\User;
 use App\Models\MstClass;
 use App\Models\MstSubject;
@@ -78,6 +79,16 @@ function getUserFullName($id)
 function getSubjectName($id)
 {
     $model = MstSubject::find($id);
+
+    if (empty($model)) {
+        return '';
+    }
+    return $model->name;
+}
+
+function getExamName($id)
+{
+    $model = Exam::find($id);
 
     if (empty($model)) {
         return '';

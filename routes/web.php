@@ -173,6 +173,7 @@ Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'stude
 
     Route::get('/subject', [SubjectController::class, 'studentSubjects'])->name('subject');
     Route::get('/timetable', [ClassTimetableController::class, 'timetable'])->name('timetable');
+    Route::get('/exam_timetable', [ExamController::class, 'studentExamTimetable'])->name('exam_timetable');
 });
 
 Route::group(['middleware' => ['parent'], 'prefix' => 'parent', 'as' => 'parent.'], function () {

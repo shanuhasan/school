@@ -204,4 +204,37 @@ class ExamController extends Controller
             ]);
         }
     }
+
+    // for student panel
+    public function studentExamTimetable()
+    {
+        $classId = Auth::user()->class_id;
+        $exam = ExamSchedule::findByClassId($classId);
+
+        $data = [];
+        foreach ($exam as $item) {
+            $subArr['exam_name'] = getExamName($item->exam_id);
+
+            $getExamTimetable = ExamSchedule::findByExamIdAndClassId($item->exam_id, $classId);
+
+            $examData = [];
+            foreach ($getExamTimetable as $vl) {
+                $ed = [];
+                $ed['subject_name'] = getSubjectName($vl->subject_id);
+                $ed['exam_date'] = $vl->exam_date;
+                $ed['start_time'] = $vl->start_time;
+                $ed['end_time'] = $vl->end_time;
+                $ed['room_no'] = $vl->room_no;
+                $ed['marks'] = $vl->marks;
+                $ed['passing_marks'] = $vl->passing_marks;
+                $examData[] = $ed;
+            }
+            $subArr['examData'] = $examData;
+            $data[] = $subArr;
+        }
+
+        return view('student.exam_timetable', [
+            'data' => $data,
+        ]);
+    }
 }

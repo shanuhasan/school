@@ -13,4 +13,14 @@ class ExamSchedule extends Model
     {
         return self::where('exam_id', $examId)->where('class_id', $classId)->where('subject_id', $subjectId)->first();
     }
+
+    static public function findByClassId($classId)
+    {
+        return self::where('class_id', $classId)->groupBy('exam_id')->orderBy('id', 'DESC')->get();
+    }
+
+    static public function findByExamIdAndClassId($examId, $classId)
+    {
+        return self::where('exam_id', $examId)->where('class_id', $classId)->get();
+    }
 }
