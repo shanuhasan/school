@@ -7,6 +7,7 @@ use App\Models\MstClass;
 use App\Models\ClassSubject;
 use App\Models\ExamSchedule;
 use Illuminate\Http\Request;
+use App\Models\AssignClassTeacher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -234,6 +235,51 @@ class ExamController extends Controller
         }
 
         return view('student.exam_timetable', [
+            'data' => $data,
+        ]);
+    }
+
+    // for teacher panel
+    public function teacherExamTimetable()
+    {
+        $teacherId = Auth::user()->id;
+        $getClass = AssignClassTeacher::findByTeacherId($teacherId);
+
+        $data = [];
+        foreach ($getClass as $item) {
+            $dataC = [];
+            $dataC['class_name'] = getClassName($item->class_id);
+
+            $exam = ExamSchedule::findByClassId($item->class_id);
+
+            $examArr = [];
+            foreach ($exam as $vl) {
+                $dataE = [];
+                $dataE['exam_name'] = getExamName($vl->exam_id);
+
+                $getExamTimetable = ExamSchedule::findByExamIdAndClassId($vl->exam_id, $item->class_id);
+                $subjectArr = [];
+                foreach ($getExamTimetable as $vl) {
+                    $dataS = [];
+                    $dataS['subject_name'] = getSubjectName($vl->subject_id);
+                    $dataS['exam_date'] = $vl->exam_date;
+                    $dataS['start_time'] = $vl->start_time;
+                    $dataS['end_time'] = $vl->end_time;
+                    $dataS['room_no'] = $vl->room_no;
+                    $dataS['marks'] = $vl->marks;
+                    $dataS['passing_marks'] = $vl->passing_marks;
+                    $subjectArr[] = $dataS;
+                }
+                $dataE['subject'] = $subjectArr;
+                $examArr[] = $dataE;
+            }
+            $dataC['exam'] = $examArr;
+            $data[] = $dataC;
+        }
+
+        // pre($data);
+
+        return view('teacher.exam_timetable', [
             'data' => $data,
         ]);
     }

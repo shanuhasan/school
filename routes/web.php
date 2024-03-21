@@ -160,6 +160,8 @@ Route::group(['middleware' => ['teacher'], 'prefix' => 'teacher', 'as' => 'teach
     Route::get('/my-student', [StudentController::class, 'myStudent'])->name('my_student');
     Route::get('/my-class-subject', [AssignClassTeacherController::class, 'myClassSubject'])->name('my_class_subject');
     Route::get('/class-timetable/{class_id}/{subject_id}', [ClassTimetableController::class, 'teacherClassTimetable'])->name('timetable');
+
+    Route::get('/exam_timetable', [ExamController::class, 'teacherExamTimetable'])->name('exam_timetable');
 });
 
 Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'student.'], function () {

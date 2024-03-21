@@ -139,6 +139,12 @@
                             <p>My Class & Subject</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teacher.exam_timetable') }}" class="nav-link @yield('exam_timetable')">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>Exam Timetable</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 3)
                     <li class="nav-item">
                         <a href="{{ route('student.dashboard') }}" class="nav-link @yield('dashboard')">

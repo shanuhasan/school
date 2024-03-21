@@ -67,6 +67,15 @@ class AssignClassTeacher extends Model
             ->get();
     }
 
+    static public function findByTeacherId($teacher_id)
+    {
+        return self::where('is_deleted', '=', 0)
+            ->where('status', '=', 1)
+            ->where('teacher_id', '=', $teacher_id)
+            ->groupBy('class_id')
+            ->get();
+    }
+
     static public function getTeacherClassTimetable($classId, $subjectId)
     {
         $week = Week::findByName(date('l'));

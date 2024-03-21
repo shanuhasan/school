@@ -21,6 +21,6 @@ class ExamSchedule extends Model
 
     static public function findByExamIdAndClassId($examId, $classId)
     {
-        return self::where('exam_id', $examId)->where('class_id', $classId)->get();
+        return self::where('exam_id', $examId)->where('class_id', $classId)->orderBy('exam_date', 'ASC')->get();
     }
 }

@@ -20,13 +20,14 @@
             @foreach ($data as $item)
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $item['exam_name'] }}</h3>
+                        <h3 class="card-title">Exam Name:- <strong>{{ $item['exam_name'] }}</strong></h3>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>Subject</th>
+                                    <th>Day</th>
                                     <th>Exam Date</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
@@ -44,6 +45,9 @@
                                         <th>
                                             {{ $item['subject_name'] }}
                                         </th>
+                                        <td>
+                                            {{ !empty($item['exam_date']) ? date('l', strtotime($item['exam_date'])) : '' }}
+                                        </td>
                                         <th>
                                             {{ $item['exam_date'] }}
                                         </th>
