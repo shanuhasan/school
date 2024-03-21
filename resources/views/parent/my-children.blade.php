@@ -53,8 +53,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm"
+                                        <a class="btn btn-success btn-sm"
                                             href="{{ route('parent.children.subject', $student->guid) }}">Subject</a>
+                                        <a class="btn btn-primary btn-sm"
+                                            href="{{ route('parent.children.exam_timetable', $student->guid) }}">Exam
+                                            Timetable</a>
                                     </td>
                                 </tr>
                             @endforeach

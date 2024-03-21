@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\User;
 use App\Models\MstClass;
 use App\Models\ClassSubject;
 use App\Models\ExamSchedule;
@@ -281,6 +282,41 @@ class ExamController extends Controller
 
         return view('teacher.exam_timetable', [
             'data' => $data,
+        ]);
+    }
+
+    // for parent panel
+    public function parentChildrenExamTimetable($studentGuid)
+    {
+        $student = User::findByGuid($studentGuid);
+        $classId = $student->class_id;
+        $exam = ExamSchedule::findByClassId($classId);
+
+        $data = [];
+        foreach ($exam as $item) {
+            $subArr['exam_name'] = getExamName($item->exam_id);
+
+            $getExamTimetable = ExamSchedule::findByExamIdAndClassId($item->exam_id, $classId);
+
+            $examData = [];
+            foreach ($getExamTimetable as $vl) {
+                $ed = [];
+                $ed['subject_name'] = getSubjectName($vl->subject_id);
+                $ed['exam_date'] = $vl->exam_date;
+                $ed['start_time'] = $vl->start_time;
+                $ed['end_time'] = $vl->end_time;
+                $ed['room_no'] = $vl->room_no;
+                $ed['marks'] = $vl->marks;
+                $ed['passing_marks'] = $vl->passing_marks;
+                $examData[] = $ed;
+            }
+            $subArr['examData'] = $examData;
+            $data[] = $subArr;
+        }
+
+        return view('parent.exam_timetable', [
+            'data' => $data,
+            'student' => $student,
         ]);
     }
 }

@@ -214,4 +214,14 @@ class User extends Authenticatable
             ->groupBy('users.id')
             ->paginate(20);
     }
+
+    static public function findByGuid($guid)
+    {
+        $user = self::select('users.*')
+            ->where('guid', $guid)
+            ->where('is_deleted', 0)
+            ->where('status', 1)
+            ->first();
+        return  $user;
+    }
 }
