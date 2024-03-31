@@ -164,6 +164,7 @@ Route::group(['middleware' => ['teacher'], 'prefix' => 'teacher', 'as' => 'teach
     Route::get('/class-timetable/{class_id}/{subject_id}', [ClassTimetableController::class, 'teacherClassTimetable'])->name('timetable');
 
     Route::get('/exam_timetable', [ExamController::class, 'teacherExamTimetable'])->name('exam_timetable');
+    Route::get('/calendar', [CalendarController::class, 'teacherCalendar'])->name('calendar');
 });
 
 Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'student.'], function () {

@@ -145,6 +145,12 @@
                             <p>Exam Timetable</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teacher.calendar') }}" class="nav-link @yield('calendar')">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>Calender</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 3)
                     <li class="nav-item">
                         <a href="{{ route('student.dashboard') }}" class="nav-link @yield('dashboard')">

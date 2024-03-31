@@ -23,4 +23,15 @@ class ExamSchedule extends Model
     {
         return self::where('exam_id', $examId)->where('class_id', $classId)->orderBy('exam_date', 'ASC')->get();
     }
+
+    static public function getExamTimetable($teacherId)
+    {
+        return self::select('exam_schedules.*', 'mst_classes.name as class_name', 'mst_subjects.name as subject_name', 'exams.name as exam_name')
+            ->join('assign_class_teachers', 'assign_class_teachers.class_id', '=', 'exam_schedules.class_id')
+            ->join('mst_classes', 'mst_classes.id', 'exam_schedules.class_id')
+            ->join('mst_subjects', 'mst_subjects.id', 'exam_schedules.subject_id')
+            ->join('exams', 'exams.id', 'exam_schedules.exam_id')
+            ->where('assign_class_teachers.teacher_id', $teacherId)
+            ->get();
+    }
 }

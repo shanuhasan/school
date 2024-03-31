@@ -67,6 +67,20 @@ class AssignClassTeacher extends Model
             ->get();
     }
 
+    static public function getTeacherCalendar($teacherId)
+    {
+        return self::select('class_subject_timetables.*', 'mst_classes.name as class_name', 'mst_subjects.name as subject_name', 'weeks.calendar_day')
+            ->join('mst_classes', 'mst_classes.id', 'assign_class_teachers.class_id')
+            ->join('class_subjects', 'class_subjects.class_id', 'mst_classes.id')
+            ->join('class_subject_timetables', 'class_subject_timetables.subject_id', 'class_subjects.subject_id')
+            ->join('mst_subjects', 'mst_subjects.id', 'class_subject_timetables.subject_id')
+            ->join('weeks', 'weeks.id', 'class_subject_timetables.week_id')
+            ->where('assign_class_teachers.is_deleted', '=', 0)
+            ->where('assign_class_teachers.status', '=', 1)
+            ->where('assign_class_teachers.teacher_id', '=', $teacherId)
+            ->get();
+    }
+
     static public function findByTeacherId($teacher_id)
     {
         return self::where('is_deleted', '=', 0)
