@@ -32,8 +32,7 @@
                                     <input type="text" name="name" class="form-control" placeholder="Name"
                                         value="{{ Request::get('name') }}">
                                 </div>
-                                <button type="submit" class="btn btn-success">Filter</button>
-                                <a href="{{ route('admin.subject.index') }}" class="btn btn-danger">Reset</a>
+
                             </div>
 
                             <div class="col-md-3">
@@ -50,8 +49,9 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+                        <button type="submit" class="btn btn-success">Filter</button>
+                        <a href="{{ route('admin.subject.index') }}" class="btn btn-danger">Reset</a>
                     </div>
                 </form>
             </div>
