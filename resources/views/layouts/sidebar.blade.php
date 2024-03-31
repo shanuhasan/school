@@ -159,6 +159,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('student.calendar') }}" class="nav-link @yield('calendar')">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>Calender</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('student.timetable') }}" class="nav-link @yield('timetable')">
                             <i class="nav-icon fas fa-list-alt"></i>
                             <p>Timetable</p>

@@ -9,6 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\ClassSubjectController;
@@ -176,6 +178,8 @@ Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'stude
     Route::get('/subject', [SubjectController::class, 'studentSubjects'])->name('subject');
     Route::get('/timetable', [ClassTimetableController::class, 'timetable'])->name('timetable');
     Route::get('/exam_timetable', [ExamController::class, 'studentExamTimetable'])->name('exam_timetable');
+
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 });
 
 Route::group(['middleware' => ['parent'], 'prefix' => 'parent', 'as' => 'parent.'], function () {

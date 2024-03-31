@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('style')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
