@@ -9,6 +9,7 @@ use App\Models\ClassSubject;
 use App\Models\ExamSchedule;
 use Illuminate\Http\Request;
 use App\Models\AssignClassTeacher;
+use App\Models\MarkRegister;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -203,6 +204,126 @@ class ExamController extends Controller
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors()
+            ]);
+        }
+    }
+
+    public function marksRegister(Request $request)
+    {
+        $getClass = MstClass::getClass();
+        $getExams = Exam::getRecoards();
+
+        $subjects = $students = [];
+        if (!empty($request->class_id) && !empty($request->exam_id)) {
+            $subjects = ExamSchedule::getSubjects($request->exam_id, $request->class_id);
+            $students = User::findByClassId($request->class_id);
+        }
+
+        return view('admin.exam.marks_register', [
+            'getClass' => $getClass,
+            'getExams' => $getExams,
+            'subjects' => $subjects,
+            'students' => $students,
+        ]);
+    }
+
+    public function marksRegisterStore(Request $request)
+    {
+        $error = 0;
+        foreach ($request->marks as $mark) {
+            $examSchedule = ExamSchedule::findById($mark['id']);
+            $fullMarks = $examSchedule->marks;
+
+            // $classWork = !empty($mark['class_work']) ? $mark['class_work'] : 0;
+            // $homeWork = !empty($mark['home_work']) ? $mark['home_work'] : 0;
+            // $testWork = !empty($mark['test_work']) ? $mark['test_work'] : 0;
+            $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
+
+            // $totalMarks = $classWork + $homeWork + $testWork + $exam;
+            $totalMarks = $exam;
+
+            if ($fullMarks >= $totalMarks) {
+                $check = MarkRegister::findByStudentIdExamIdClassIdAndSubjectId($request->student_id, $request->exam_id, $request->class_id, $mark['subject_id']);
+
+                if (!empty($check)) {
+                    $model = $check;
+                } else {
+                    $model = new MarkRegister();
+                }
+
+                $model->student_id = $request->student_id;
+                $model->exam_id = $request->exam_id;
+                $model->class_id = $request->class_id;
+                $model->subject_id = $mark['subject_id'];
+                // $model->class_work = $classWork;
+                // $model->home_work = $homeWork;
+                // $model->test_work = $testWork;
+                $model->exam = $exam;
+                $model->created_by = Auth::user()->id;
+                $model->save();
+            } else {
+                $error = 1;
+            }
+        }
+        if ($error == 0) {
+            $request->session()->flash('success', 'Marks Register successfully saved.');
+            return response()->json([
+                'status' => true,
+                'message' => 'Marks Register successfully saved.'
+            ]);
+        } else {
+            $request->session()->flash('error', 'Some Marks not save. Becouse Some Total Marks Greater then Full Marks.');
+            return response()->json([
+                'status' => false,
+                'message' => 'Some Marks not save. Becouse Some Total Marks Greater then Full Marks.'
+            ]);
+        }
+    }
+
+    public function marksRegisterSingleStore(Request $request)
+    {
+        $id = $request->id;
+        $examSchedule = ExamSchedule::findById($id);
+        $fullMarks = $examSchedule->marks;
+
+        $classWork = !empty($request->classWork) ? $request->classWork : 0;
+        $homeWork = !empty($request->homeWork) ? $request->homeWork : 0;
+        $testWork = !empty($request->testWork) ? $request->testWork : 0;
+        $exam = !empty($request->exam) ? $request->exam : 0;
+
+        $totalMarks = $classWork + $homeWork + $testWork + $exam;
+
+        if ($fullMarks >= $totalMarks) {
+            $check = MarkRegister::findByStudentIdExamIdClassIdAndSubjectId($request->studentId, $request->examId, $request->classId, $request->subjectId);
+
+            if (!empty($check)) {
+                $model = $check;
+            } else {
+                $model = new MarkRegister();
+                $model->created_by = Auth::user()->id;
+            }
+
+            $model->student_id = $request->studentId;
+            $model->exam_id = $request->examId;
+            $model->class_id = $request->classId;
+            $model->subject_id = $request->subjectId;
+            // $model->class_work = $classWork;
+            // $model->home_work = $homeWork;
+            // $model->test_work = $testWork;
+            $model->exam = $exam;
+
+            $model->save();
+
+            $request->session()->flash('success', 'Marks Register successfully saved.');
+            return response()->json([
+                'status' => true,
+                'message' => 'Marks Register successfully saved.'
+            ]);
+        } else {
+            $request->session()->flash('error', 'Your Total Marks Greater then Full Marks.');
+            return response()->json([
+                'status' => false,
+                'message' => 'Your Total Marks Greater then Full Marks.'
             ]);
         }
     }

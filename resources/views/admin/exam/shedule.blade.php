@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Exam Schedule')
-@section('exam', 'active')
+@section('exam_schedule', 'active')
 @section('exam_open', 'menu-open')
 @section('exam_active', 'active')
 @section('content')

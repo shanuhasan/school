@@ -118,6 +118,12 @@
                                     <p>Exam Schedule</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.exam.marks_register') }}" class="nav-link @yield('marks_register')">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Marks Register</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @elseif(Auth::user()->getOriginal('role') == 2)

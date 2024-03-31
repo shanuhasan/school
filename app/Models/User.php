@@ -221,4 +221,13 @@ class User extends Authenticatable
         $user = self::where('guid', $guid)->first();
         return  $user;
     }
+
+    static public function findByClassId($classId)
+    {
+        return self::where('class_id', $classId)
+            ->where('is_deleted', '=', '0')
+            ->where('role', '=', '3')
+            ->orderBy('name', 'ASC')
+            ->get();
+    }
 }

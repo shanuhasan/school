@@ -143,10 +143,12 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::put('/exam/{id}', [ExamController::class, 'update'])->name('exam.update');
     Route::get('/exam/{id}', [ExamController::class, 'destroy'])->name('exam.delete');
 
-
-
     Route::get('/exam_schedule', [ExamController::class, 'examSchedule'])->name('exam_schedule.index');
     Route::post('/exam_schedule/store', [ExamController::class, 'storeSchedule'])->name('exam_schedule.store');
+
+    Route::get('/marks_register', [ExamController::class, 'marksRegister'])->name('exam.marks_register');
+    Route::post('/marks_register/store', [ExamController::class, 'marksRegisterStore'])->name('exam.marks_register.store');
+    Route::post('/marks_register/single_store', [ExamController::class, 'marksRegisterSingleStore'])->name('exam.marks_register.single');
 });
 
 

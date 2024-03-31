@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\MarkRegister;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ExamSchedule extends Model
 {
@@ -12,6 +13,11 @@ class ExamSchedule extends Model
     static public function findByExamIdClassIdAndSubjectId($examId, $classId, $subjectId)
     {
         return self::where('exam_id', $examId)->where('class_id', $classId)->where('subject_id', $subjectId)->first();
+    }
+
+    static public function findById($id)
+    {
+        return self::where('id', $id)->first();
     }
 
     static public function findByClassId($classId)
@@ -33,5 +39,18 @@ class ExamSchedule extends Model
             ->join('exams', 'exams.id', 'exam_schedules.exam_id')
             ->where('assign_class_teachers.teacher_id', $teacherId)
             ->get();
+    }
+
+    static public function getSubjects($examId, $classId)
+    {
+        return self::select('exam_schedules.*', 'mst_subjects.name as subject_name', 'mst_subjects.type as subject_type')
+            ->join('mst_subjects', 'mst_subjects.id', 'exam_schedules.subject_id')
+            ->where('exam_schedules.class_id', $classId)
+            ->where('exam_schedules.exam_id', $examId)
+            ->get();
+    }
+    static public function getMark($studentId, $examId, $classId, $subjectId)
+    {
+        return MarkRegister::findByStudentIdExamIdClassIdAndSubjectId($studentId, $examId, $classId, $subjectId);
     }
 }
