@@ -157,6 +157,12 @@
                             <p>Calender</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teacher.marks_register') }}" class="nav-link @yield('marks_register')">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>Marks Register</p>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 3)
                     <li class="nav-item">
                         <a href="{{ route('student.dashboard') }}" class="nav-link @yield('dashboard')">

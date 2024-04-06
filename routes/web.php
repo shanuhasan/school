@@ -167,6 +167,10 @@ Route::group(['middleware' => ['teacher'], 'prefix' => 'teacher', 'as' => 'teach
 
     Route::get('/exam_timetable', [ExamController::class, 'teacherExamTimetable'])->name('exam_timetable');
     Route::get('/calendar', [CalendarController::class, 'teacherCalendar'])->name('calendar');
+
+    Route::get('/marks_register', [ExamController::class, 'marksRegisterTeacher'])->name('marks_register');
+    Route::post('/marks_register/store', [ExamController::class, 'marksRegisterStore'])->name('marks_register.store');
+    Route::post('/marks_register/single_store', [ExamController::class, 'marksRegisterSingleStore'])->name('marks_register.single');
 });
 
 Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'student.'], function () {

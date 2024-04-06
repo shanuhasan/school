@@ -25,6 +25,16 @@ class ExamSchedule extends Model
         return self::where('class_id', $classId)->groupBy('exam_id')->orderBy('id', 'DESC')->get();
     }
 
+    static public function findByTeacherId($teacherId)
+    {
+        return self::select('exam_schedules.*')
+            ->join('assign_class_teachers', 'assign_class_teachers.class_id', '=', 'exam_schedules.class_id')
+            ->where('assign_class_teachers.teacher_id', $teacherId)
+            ->groupBy('exam_schedules.exam_id')
+            ->orderBy('exam_schedules.id', 'ASC')
+            ->get();
+    }
+
     static public function findByExamIdAndClassId($examId, $classId)
     {
         return self::where('exam_id', $examId)->where('class_id', $classId)->orderBy('exam_date', 'ASC')->get();

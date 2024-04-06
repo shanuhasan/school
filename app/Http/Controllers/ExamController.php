@@ -406,6 +406,28 @@ class ExamController extends Controller
         ]);
     }
 
+    public function marksRegisterTeacher(Request $request)
+    {
+        $teacherId = Auth::user()->id;
+        $getClass = AssignClassTeacher::findByTeacherId($teacherId);
+        $getExams = ExamSchedule::findByTeacherId($teacherId);
+        // pre($getExams);
+        // $getExams = Exam::getRecoards();
+
+        $subjects = $students = [];
+        if (!empty($request->class_id) && !empty($request->exam_id)) {
+            $subjects = ExamSchedule::getSubjects($request->exam_id, $request->class_id);
+            $students = User::findByClassId($request->class_id);
+        }
+
+        return view('teacher.marks_register', [
+            'getClass' => $getClass,
+            'getExams' => $getExams,
+            'subjects' => $subjects,
+            'students' => $students,
+        ]);
+    }
+
     // for parent panel
     public function parentChildrenExamTimetable($studentGuid)
     {
