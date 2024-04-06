@@ -60,6 +60,8 @@
                                             Timetable</a>
                                         <a class="btn btn-warning btn-sm"
                                             href="{{ route('parent.children.calendar', $student->guid) }}">Calendar</a>
+                                        <a class="btn btn-info btn-sm"
+                                            href="{{ route('parent.children.exam_result', $student->guid) }}">Result</a>
                                     </td>
                                 </tr>
                             @endforeach

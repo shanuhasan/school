@@ -501,4 +501,40 @@ class ExamController extends Controller
             'student' => $student,
         ]);
     }
+
+    public function parentStudentExamResult($studentGuid)
+    {
+        $student = User::findByGuid($studentGuid);
+        $studentId = $student->id;
+        $exam = MarkRegister::getExamByStudentId($studentId);
+
+        $data = [];
+        foreach ($exam as $item) {
+            $subArr['exam_name'] = getExamName($item->exam_id);
+
+            $getExamSubject = MarkRegister::findByExamIdAndStudentId($item->exam_id, $studentId);
+
+            $subjects = [];
+            foreach ($getExamSubject as $vl) {
+                $ed = [];
+                $ed['subject_name'] = getSubjectName($vl->subject_id);
+                $ed['class_work'] = $vl->class_work;
+                $ed['home_work'] = $vl->home_work;
+                $ed['test_work'] = $vl->test_work;
+                $ed['exam'] = $vl->exam;
+                // $ed['total_score'] = $vl->class_work + $vl->home_work + $vl->test_work + $vl->exam;
+                $ed['total_score'] = $vl->exam;
+                $ed['marks'] = $vl->marks;
+                $ed['passing_marks'] = $vl->passing_marks;
+                $subjects[] = $ed;
+            }
+            $subArr['subjects'] = $subjects;
+            $data[] = $subArr;
+        }
+
+        return view('parent.exam_result', [
+            'data' => $data,
+            'student' => $student,
+        ]);
+    }
 }
