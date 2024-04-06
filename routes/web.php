@@ -187,6 +187,8 @@ Route::group(['middleware' => ['student'], 'prefix' => 'student', 'as' => 'stude
     Route::get('/exam_timetable', [ExamController::class, 'studentExamTimetable'])->name('exam_timetable');
 
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+
+    Route::get('/exam_result', [ExamController::class, 'studentExamResult'])->name('exam_result');
 });
 
 Route::group(['middleware' => ['parent'], 'prefix' => 'parent', 'as' => 'parent.'], function () {

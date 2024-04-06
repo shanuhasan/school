@@ -17,4 +17,18 @@ class MarkRegister extends Model
             ->where('subject_id', '=', $subjectId)
             ->first();
     }
+
+    static public function getExamByStudentId($studentId)
+    {
+        return self::where('student_id', '=', $studentId)
+            ->groupBy('exam_id')
+            ->get();
+    }
+
+    static public function findByExamIdAndStudentId($examId, $studentId)
+    {
+        return self::where('exam_id', '=', $examId)
+            ->where('student_id', '=', $studentId)
+            ->get();
+    }
 }
