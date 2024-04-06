@@ -124,6 +124,12 @@
                                     <p>Marks Register</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.marks_grade.index') }}" class="nav-link @yield('marks_grade')">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Marks Grade</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @elseif(Auth::user()->getOriginal('role') == 2)

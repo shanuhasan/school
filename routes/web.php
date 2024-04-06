@@ -16,6 +16,7 @@ use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\AssignClassTeacherController;
+use App\Http\Controllers\MarksGradeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -149,6 +150,14 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::get('/marks_register', [ExamController::class, 'marksRegister'])->name('exam.marks_register');
     Route::post('/marks_register/store', [ExamController::class, 'marksRegisterStore'])->name('exam.marks_register.store');
     Route::post('/marks_register/single_store', [ExamController::class, 'marksRegisterSingleStore'])->name('exam.marks_register.single');
+
+    //marks grade
+    Route::get('/marks_grade', [MarksGradeController::class, 'index'])->name('marks_grade.index');
+    Route::get('/marks_grade/create', [MarksGradeController::class, 'create'])->name('marks_grade.create');
+    Route::post('/marks_grade/store', [MarksGradeController::class, 'store'])->name('marks_grade.store');
+    Route::get('/marks_grade/{id}/edit', [MarksGradeController::class, 'edit'])->name('marks_grade.edit');
+    Route::put('/marks_grade/{id}', [MarksGradeController::class, 'update'])->name('marks_grade.update');
+    Route::get('/marks_grade/{id}', [MarksGradeController::class, 'destroy'])->name('marks_grade.delete');
 });
 
 
