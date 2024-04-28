@@ -23,4 +23,13 @@ class MarkGrade extends Model
             ->paginate(10);
         return  $marksGrades;
     }
+
+    static public function getGrade($per)
+    {
+        $return = self::select('mark_grades.*')
+            ->where('percent_from', '<=', $per)
+            ->where('percent_to', '>=', $per)
+            ->first();
+        return !empty($return->name) ? $return->name : '';
+    }
 }
