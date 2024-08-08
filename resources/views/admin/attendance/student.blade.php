@@ -43,9 +43,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label for="class_id">Attendance Date</label>
+                                    <label for="attendance_date">Attendance Date</label>
                                     <input type="date" class="form-control" value="{{ Request::get('attendance_date') }}"
-                                        name="attendance_date" required id="">
+                                        name="attendance_date" required id="attendance_date">
                                 </div>
                             </div>
                         </div>
@@ -79,19 +79,50 @@
                             <tbody>
                                 @if (!empty($students) && !empty($students->count()))
                                     @foreach ($students as $student)
+                                        @php
+                                            $attendance_type = '';
+                                            $getAttendance = $student->getAttendance(
+                                                $student->id,
+                                                Request::get('class_id'),
+                                                Request::get('attendance_date'),
+                                            );
+
+                                            if (!empty($getAttendance)) {
+                                                $attendance_type = $getAttendance->attendance_type;
+                                            }
+                                        @endphp
                                         <tr>
                                             <td>{{ $student->id }}</td>
                                             <td>{{ $student->name }}</td>
                                             <td>
-                                                <label for=""><input type="radio"
-                                                        name="attendance{{ $student->id }}" id="">Present</label>
-                                                <label for=""><input type="radio"
-                                                        name="attendance{{ $student->id }}" id="">Absent</label>
-                                                <label for=""><input type="radio"
-                                                        name="attendance{{ $student->id }}" id="">Late</label>
-                                                <label for=""><input type="radio"
-                                                        name="attendance{{ $student->id }}" id="">Half
-                                                    Day</label>
+                                                <label for="">
+                                                    <input type="radio"
+                                                        {{ $attendance_type == App\Models\Attendance::PRESENT ? 'checked' : '' }}
+                                                        value="{{ App\Models\Attendance::PRESENT }}"
+                                                        name="attendance{{ $student->id }}" id="{{ $student->id }}"
+                                                        class="saveAttendance">Present
+                                                </label>
+                                                <label for="">
+                                                    <input type="radio"
+                                                        {{ $attendance_type == App\Models\Attendance::ABSENT ? 'checked' : '' }}
+                                                        value="{{ App\Models\Attendance::ABSENT }}"
+                                                        name="attendance{{ $student->id }}" id="{{ $student->id }}"
+                                                        class="saveAttendance">Absent
+                                                </label>
+                                                <label for="">
+                                                    <input type="radio"
+                                                        {{ $attendance_type == App\Models\Attendance::LATE ? 'checked' : '' }}
+                                                        value="{{ App\Models\Attendance::LATE }}"
+                                                        name="attendance{{ $student->id }}" id="{{ $student->id }}"
+                                                        class="saveAttendance">Late
+                                                </label>
+                                                <label for="">
+                                                    <input type="radio"
+                                                        {{ $attendance_type == App\Models\Attendance::HALF_DAY ? 'checked' : '' }}
+                                                        value="{{ App\Models\Attendance::HALF_DAY }}"
+                                                        name="attendance{{ $student->id }}" id="{{ $student->id }}"
+                                                        class="saveAttendance">HalfDay
+                                                </label>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -109,5 +140,30 @@
 @endsection
 
 @section('script')
-    <script></script>
+    <script>
+        $('.saveAttendance').change(function(e) {
+            e.preventDefault();
+            var studentId = $(this).attr('id');
+            var attendance_type = $(this).val();
+            var classId = $('#class_id').val();
+            var attendance_date = $('#attendance_date').val();
+
+            $.ajax({
+                url: "{{ route('admin.attendance.save') }}",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    studentId: studentId,
+                    attendance_type: attendance_type,
+                    classId: classId,
+                    attendance_date: attendance_date
+                },
+                dataType: 'json',
+                success: function(response) {
+                    alert(response.message);
+                }
+            });
+
+        });
+    </script>
 @endsection

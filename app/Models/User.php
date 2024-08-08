@@ -230,4 +230,9 @@ class User extends Authenticatable
             ->orderBy('name', 'ASC')
             ->get();
     }
+
+    static public function getAttendance($studentId, $classId, $date)
+    {
+        return Attendance::check($studentId, $classId, $date);
+    }
 }

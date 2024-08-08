@@ -160,8 +160,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::put('/marks_grade/{id}', [MarksGradeController::class, 'update'])->name('marks_grade.update');
     Route::get('/marks_grade/{id}', [MarksGradeController::class, 'destroy'])->name('marks_grade.delete');
 
-
+    //attendance
     Route::get('/attendance', [AttendanceController::class, 'attendance'])->name('attendance.student');
+    Route::post('/attendance/save', [AttendanceController::class, 'saveAttendance'])->name('attendance.save');
 });
 
 
