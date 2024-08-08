@@ -132,6 +132,23 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item @yield('attendance_open')">
+                        <a href="#" class="nav-link @yield('attendance_active')">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                Attendance
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.attendance.student') }}" class="nav-link @yield('attendance')">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Student Attendance</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @elseif(Auth::user()->getOriginal('role') == 2)
                     <li class="nav-item">
                         <a href="{{ route('teacher.dashboard') }}" class="nav-link @yield('dashboard')">

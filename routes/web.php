@@ -12,11 +12,12 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\MarksGradeController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\AssignClassTeacherController;
-use App\Http\Controllers\MarksGradeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +159,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     Route::get('/marks_grade/{id}/edit', [MarksGradeController::class, 'edit'])->name('marks_grade.edit');
     Route::put('/marks_grade/{id}', [MarksGradeController::class, 'update'])->name('marks_grade.update');
     Route::get('/marks_grade/{id}', [MarksGradeController::class, 'destroy'])->name('marks_grade.delete');
+
+
+    Route::get('/attendance', [AttendanceController::class, 'attendance'])->name('attendance.student');
 });
 
 
