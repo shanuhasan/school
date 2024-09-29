@@ -147,6 +147,12 @@
                                     <p>Student Attendance</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.attendance.report') }}" class="nav-link @yield('report')">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Attendance Report</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @elseif(Auth::user()->getOriginal('role') == 2)

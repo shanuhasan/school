@@ -163,6 +163,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin', 'as' => 'admin.'],
     //attendance
     Route::get('/attendance', [AttendanceController::class, 'attendance'])->name('attendance.student');
     Route::post('/attendance/save', [AttendanceController::class, 'saveAttendance'])->name('attendance.save');
+    Route::get('/attendance/report', [AttendanceController::class, 'attendanceReport'])->name('attendance.report');
 });
 
 

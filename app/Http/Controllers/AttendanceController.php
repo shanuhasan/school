@@ -7,6 +7,7 @@ use App\Models\MstClass;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class AttendanceController extends Controller
 {
@@ -46,5 +47,15 @@ class AttendanceController extends Controller
         $json['message'] = 'Attendance Successfully Marked.';
 
         echo json_encode($json);
+    }
+
+    public function attendanceReport(Request $request)
+    {
+        $getClass = MstClass::getClass();
+        $data = Attendance::getRecords();
+        return view('admin.attendance.report', [
+            'getClass' => $getClass,
+            'data' => $data,
+        ]);
     }
 }
